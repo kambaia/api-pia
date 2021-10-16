@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import path from 'path';
+import routes from './routers/user';
 dotenv.config();
 
 let db = require('./config/db');
@@ -18,7 +19,6 @@ class App {
 	private middlewares(): void {
 		this.express.use(express.json());
 		this.express.use(cors());
-
 		this.express.use('/files', express.static(path.resolve(__dirname, 'tmp', 'uploads')));
 		this.express.use(express.urlencoded({ extended: false }));
 
@@ -30,13 +30,12 @@ class App {
 
 	
     private system_router():void {
-		console.log("Rodas do sistema")
+		this.express.use(routes);
 	}
 	
 	private main_routes(): void {
 		this.express.get("/", (req, res) => {
 			res.send(`
-		       
 				 <body style="display:flex;justify-content: center;  align-items: center;background-color:black;color:black;text-align:center;padding:30px; font-size:40pt;">
 				<h2  style="color:#008bd0;text-align:center;padding:30px; font-size:40pt;">Seja bem-vindo ao sistema de pagamentos instituicional Angola.</h2>
 					<p style="color:#fff;text-align:center;padding:20px; font-size:20pt;">A nossa api tem como objectivo ajudar no crescimento do país com base os pagamentos de propínas e de serviços escolares nas universidades, institutos e colegios <a href="/doc">Acessa a nossa documentação</a></p>
