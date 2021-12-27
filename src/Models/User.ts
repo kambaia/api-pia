@@ -46,6 +46,7 @@ userSchema.pre(
 	}
 );
 
+
 // Compare a candidate password with the user's password
 userSchema.methods.comparePassword = async function (
 	candidatePassword: string
