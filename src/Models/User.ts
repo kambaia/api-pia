@@ -7,12 +7,21 @@ const userSchema: Schema = new Schema({
 	lastName: { type: String, required: true },
 	gender: { type: String, enum: Object.values(Gender) },
 	active:{type:Boolean},
+	passwordResetToken: {
+        type: String,
+        select: false,
+    },
+    passwordResetExpire: {
+        type: Date,
+        select:false,
+    },
+	
 	address: {
 		street: { type: String },
 		city: { type: String },
 		postCode: { type: String }
 	},
-	roles: { type: mongoose.Schema.Types.ObjectId, ref: "" },
+	roles: { type: mongoose.Schema.Types.ObjectId, ref: "Roles" },
 }, { timestamps: true });
 
 userSchema.index({ email: 1 });
@@ -33,7 +42,6 @@ userSchema.pre(
 
 		// Replace the password with the hash
 		this.password = hash;
-
 		return next();
 	}
 );

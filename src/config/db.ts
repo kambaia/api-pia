@@ -5,7 +5,9 @@ import  mongoose  from 'mongoose'
 module.exports = function(uri:string) {
    mongoose.connect(uri, { 
       useNewUrlParser: true, 
+      keepAlive:true,
       useUnifiedTopology: true,
+      useFindAndModify:false,
       useCreateIndex: true
    })
 

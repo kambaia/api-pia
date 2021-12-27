@@ -2,7 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import path from 'path';
-import routes from './routers/user';
+import { classRouter, roleRouter, userRouter } from './routers';
+import { groupRouter } from './routers/group';
 dotenv.config();
 
 let db = require('./config/db');
@@ -26,11 +27,12 @@ class App {
 	private database(): void {
 		db(process.env.MONGO_local_KEY);
 	}
-
-
-	
     private system_router():void {
-		this.express.use(routes);
+		this.express.use(userRouter);
+		this.express.use(roleRouter);
+		this.express.use(classRouter);
+		this.express.use(groupRouter);
+
 	}
 	
 	private main_routes(): void {

@@ -2,7 +2,9 @@
 
 import  { Router} from 'express';
 import UserController from '../controllers/UserController';
-const routes = Router();
-routes.get('/users', UserController.listAllUser);
-routes.post('/users', UserController.saveUser);
-export default routes;
+export const userRouter = Router();
+userRouter.get('/api/users', UserController.listAllUser);
+userRouter.get('/api/user/:userId', UserController.listUser);
+userRouter.post('/api/user', UserController.saveUser);
+userRouter.put('/api/user/:userId', UserController.updateUser);
+userRouter.delete('/api/user/:userId', UserController.deleteUser);
