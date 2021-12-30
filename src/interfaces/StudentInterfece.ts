@@ -4,6 +4,7 @@ import { IUser } from "./UserInterface"
 
 
 export interface IStudent extends Document{
+	_id?: string;
    studentPhoto: string;
    studentCover:string;
    studentName:string;

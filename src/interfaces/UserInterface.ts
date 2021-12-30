@@ -1,5 +1,6 @@
 import { Document } from 'mongoose';
 export interface IUser extends Document {
+	_id?: string;
 	email: string;
 	firstName: string;
 	lastName: string;
@@ -9,7 +10,7 @@ export interface IUser extends Document {
 	createdAt: Date;
 	updatedAt: Date;
 	roles: Iaccess_level["_id"];
-	active:boolean;
+	active: boolean;
 }
 export enum Gender {
 	male = 'male',
@@ -24,8 +25,8 @@ export interface Address extends Document {
 }
 export interface Iaccess_level extends Document {
 	livel: number;
-	role:string;
-    type:string;
+	role: string;
+	type: string;
 	createdAt: Date;
 	updatedAt: Date;
 }
