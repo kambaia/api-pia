@@ -73,11 +73,7 @@ import app from '../app';
 	   throw error;
    }
  }
- 
- /**
-  * Event listener for HTTP server "listening" event.
-  */
- 
+
  function onListening() {
    var addr = server.address();
    var bind = typeof addr === 'string'
