@@ -5,11 +5,11 @@
 	"main": "index.js",
 	"scripts": {
 		"build": "tsc",
-		"start": "node ./dist/www/server",
+		"start": "node dist/www/server",
 		"dev": "ts-node-dev --respawn --transpile-only src/www/server.ts"
 	},
 	"engines": {
-		"node": "14"
+		"node": "12"
 	},
 	"keywords": [],
 	"author": "",
