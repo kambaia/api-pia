@@ -1,11 +1,14 @@
 import { Document } from 'mongoose';
 export interface IUser extends Document {
+	_id:String;
 	email: string;
 	firstName: string;
 	lastName: string;
-	password: string,
+	password?: string;
 	gender?: Gender;
 	address?: Address;
+	phoneNumber?: string;
+	studyNumber?:string;
 	createdAt: Date;
 	updatedAt: Date;
 	roles: Iaccess_level["_id"];

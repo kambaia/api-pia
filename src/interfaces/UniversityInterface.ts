@@ -2,6 +2,7 @@ import { Address, IUser } from "./UserInterface"
 
 
 export interface IUniversity extends Document{
+   _id:String;
    universityPhoto: string;
    universityCover:string;
    universityName:string;
