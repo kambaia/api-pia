@@ -22,7 +22,6 @@ class App {
 		this.express.use(cors());
 		this.express.use('/files', express.static(path.resolve(__dirname, 'tmp', 'uploads')));
 		this.express.use(express.urlencoded({ extended: false }));
-		
 	}
 	private database(): void {
 		db(process.env.MONGO_local_KEY);
@@ -36,7 +35,7 @@ class App {
 	}
 	
 	private main_routes(): void {
-		this.express.get("/", (_req, res) => {
+		this.express.get("/", (req, res) => {
 			res.send(`
 				 <body style="display:flex;justify-content: center;  align-items: center;background-color:black;color:black;text-align:center;padding:30px; font-size:40pt;">
 				<h2  style="color:#008bd0;text-align:center;padding:30px; font-size:40pt;">Seja bem-vindo ao sistema de pagamentos instituicional Angola.</h2>

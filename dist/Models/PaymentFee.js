@@ -1,5 +1,7 @@
-import mongoose, { model, Schema } from "mongoose";
-const paymentSchema: Schema = new Schema({
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var mongoose_1 = require("mongoose");
+var paymentSchema = new mongoose_1.Schema({
     fee: {
         type: String,
         required: true // Atributo obrigatório
@@ -43,13 +45,9 @@ const paymentSchema: Schema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Registration'
     },
-    SchoolId:
-        { type: mongoose.Schema.Types.ObjectId, ref: 'School' },
+    SchoolId: { type: mongoose.Schema.Types.ObjectId, ref: 'School' },
     status: {
         type: Boolean
     },
-
 });
-
-
-export default model('payment', paymentSchema);
+exports.default = (0, mongoose_1.model)('payment', paymentSchema);

@@ -73,7 +73,15 @@ import app from '../app';
 	   throw error;
    }
  }
+<<<<<<< HEAD
 
+=======
+ 
+ /**
+  * Event listener for HTTP server "listening" event.
+  */
+ 
+>>>>>>> ab9575ad6a2a6b65623e238e9fba573305d3b794
  function onListening() {
    var addr = server.address();
    var bind = typeof addr === 'string'

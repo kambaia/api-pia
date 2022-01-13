@@ -1,7 +1,7 @@
 import { Address, IUser } from "./UserInterface"
 
 export interface ISchool extends Document{
-	_id?: string;
+   _id:String;
    schoolPhoto: string;
    schoolCover:string;
    schoolName:string;

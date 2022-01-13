@@ -44,7 +44,6 @@ class FeeController {
 		try {
 			const id = req.params.id;
 			const feeResult = await Fee.findByIdAndDelete(id);
-
 			if (feeResult) {
 				return res.status(204).send("Deletado com sucesso")
 			}
