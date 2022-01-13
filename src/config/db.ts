@@ -1,5 +1,5 @@
 
-import  mongoose  from 'mongoose'
+import  mongoose, { ConnectOptions }  from 'mongoose'
 // Parâmetro uri = Universal Resource Indicator (indica onde está o MongoDB
 // a que iremos nos conectar)
 module.exports = function(uri:string) {
@@ -7,9 +7,7 @@ module.exports = function(uri:string) {
       useNewUrlParser: true, 
       keepAlive:true,
       useUnifiedTopology: true,
-      useFindAndModify:false,
-      useCreateIndex: true
-   })
+	} as ConnectOptions);
 
    mongoose.connection.on('connected', () => 
       console.log(`Mongoose! conectado a ${uri}`)
