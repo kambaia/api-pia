@@ -1,8 +1,8 @@
 import { Request, Response } from 'express'
-import {IFee } from '../interfaces/InicializeConfigInstitutionInterface';
+import { IFee } from '../interfaces/InicializeConfigInstitutionInterface';
 import Fee from '../Models/Fee';
 class FeeController {
-	public async listAll(req: Request, res: Response): Promise<Response> {
+	public async listAll(res: Response): Promise<Response> {
 		try {
 			const feeResult: IFee[] = await Fee.find();
 			return res.status(200).send(feeResult);
@@ -13,7 +13,7 @@ class FeeController {
 	public async listOne(req: Request, res: Response): Promise<Response> {
 		const { feeId } = req.params;
 		try {
-			const feeResult = await Fee.find({_id: feeId});
+			const feeResult = await Fee.find({ _id: feeId });
 			return res.status(200).send(feeResult);
 		} catch (error) {
 			return res.status(404).json("Nenhuma turma cadastrado");
@@ -33,7 +33,7 @@ class FeeController {
 			const data = req.body;
 
 			const { feeId } = req.params;
-			const feeResult = await Fee.updateOne({_id: feeId}, {$set: data}, {new:false});
+			const feeResult = await Fee.updateOne({ _id: feeId }, { $set: data }, { new: false });
 			console.log(feeResult);
 			return res.status(200).json({ message: "As suas informações foram actualizadas com sucesso", feeResult });
 		} catch (error) {
@@ -44,7 +44,7 @@ class FeeController {
 		try {
 			const id = req.params.id;
 			const feeResult = await Fee.findByIdAndDelete(id);
-		
+
 			if (feeResult) {
 				return res.status(204).send("Deletado com sucesso")
 			}

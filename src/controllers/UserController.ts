@@ -3,20 +3,26 @@ import { IUser } from '../interfaces/UserInterface';
 import User from '../Models/User';
 class UserController {
 	public async listAllUser(req: Request, res: Response): Promise<Response> {
+		const { userId } = req.query;
 		try {
-			const users: IUser[] = await User.find().populate('roles', '_id role type livel');
-			return res.status(200).send(users);
+			if (userId) {
+				const users = await User.findById(userId).populate('roles', '_id role type livel');
+				return res.status(200).send(users);
+			}else{
+				const users: IUser[] = await User.find().populate('roles', '_id role type livel');
+				return res.status(200).send(users);
+			}
 		} catch (error) {
-			return res.status(404).json("Nenhum usuário cadastrado");
+			return res.status(404).send(error);
 		}
 	}
 	public async listUser(req: Request, res: Response): Promise<Response> {
 		const { userId } = req.params;
 		try {
 			const users = await User.findById(userId).populate('roles', '_id role type livel');
-			return res.status(200).send(users);
+				return res.status(200).send(users);
 		} catch (error) {
-			return res.status(404).json("Nenhum usuário cadastrado");
+			return res.status(404).json({ message: "Nenhum usuário cadastrado" });
 		}
 
 	}
@@ -31,11 +37,11 @@ class UserController {
 	public async updateUser(req: Request, res: Response): Promise<Response> {
 		try {
 			const data = req.body;
-		
+
 			const { userId } = req.params;
 			console.log(userId);
 
-			const user = await User.updateOne({_id: userId}, {$set: data}, {new:false});
+			const user = await User.updateOne({ _id: userId }, { $set: data }, { new: false });
 			console.log(user);
 			return res.status(200).json({ message: "As suas informações foram actualizadas com sucesso", user });
 		} catch (error) {

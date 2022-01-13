@@ -13,3 +13,5 @@ export interface IUniversity extends Document {
 	createdAt: Date;
 	updatedAt: Date;
 }
+
+

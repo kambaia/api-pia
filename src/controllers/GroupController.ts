@@ -3,7 +3,7 @@ import {IGroup } from '../interfaces/InicializeConfigInstitutionInterface';
 import Class from '../Models/Class';
 import Group from '../Models/Group';
 class GroupController {
-	public async listAll(req: Request, res: Response): Promise<Response> {
+	public async listAll(res: Response): Promise<Response> {
 		try {
 			const groupResult: IGroup[] = await Group.find();
 			return res.status(200).send(groupResult);

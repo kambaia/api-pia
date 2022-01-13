@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import { Iaccess_level } from '../interfaces/UserInterface';
 import Roles from '../Models/Access_Level';
 class UserController{
-	public async listRoles(req:Request, res:Response): Promise<Response>{
+	public async listRoles(res:Response): Promise<Response>{
 		 const roles:Iaccess_level[] = await Roles.find();
 		 return res.send(roles);
 	}

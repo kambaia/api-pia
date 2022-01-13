@@ -6,8 +6,7 @@ const schoolShema: Schema = new Schema({
    schoolCover: { type: String, required: true },
    schoolName: { type: String, required: true },
    schoolIdentity: { type: String, required: true },
-   birthDate: { type: String, required: true },
-   studetNumber: { type: Number, required: true },
+   birthDateFundation: { type: String, required: true },
    shoolRepresentative: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
 }, {
    timestamps: true

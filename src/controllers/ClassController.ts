@@ -3,7 +3,7 @@ import { IClass } from '../interfaces/InicializeConfigInstitutionInterface';
 import Class from '../Models/Class';
 import User from '../Models/User';
 class classController {
-	public async listAllClasses(req: Request, res: Response): Promise<Response> {
+	public async listAllClasses(res: Response): Promise<Response> {
 		try {
 			const classResult: IClass[] = await Class.find();
 			return res.status(200).send(classResult);

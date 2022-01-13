@@ -22,7 +22,7 @@ class App {
 		this.express.use(cors());
 		this.express.use('/files', express.static(path.resolve(__dirname, 'tmp', 'uploads')));
 		this.express.use(express.urlencoded({ extended: false }));
-
+		
 	}
 	private database(): void {
 		db(process.env.MONGO_local_KEY);
