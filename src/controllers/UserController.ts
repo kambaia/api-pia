@@ -24,8 +24,7 @@ class UserController {
 	public async saveUser(req: Request, res: Response): Promise<Response> {
 		try {
 			const user = await User.findOne({ email: req.body.email, phoneNumber:req.body.phoneNumber}) as IUser;
-            if (!user) {	
-				console.log(req.body);		  
+            if (!user) {
 				const data = await User.create(req.body);
 				data.password = undefined;
 				return res.status(200).json({ message: "Cadastro feito  com sucesso", data });
