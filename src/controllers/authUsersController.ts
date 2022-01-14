@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import { IUser } from '../interfaces/UserInterface';
 import User from '../Models/User';
 import { authToke } from '../utils';
+import GeneteRefreshToken from '../Provider/GeneteRefreshToken';
 
 class authUsersController {
 	public async authinticationShools(req: Request, res: Response): Promise<Response> {
@@ -16,8 +17,10 @@ class authUsersController {
 				return res.json({ message: "E-mail ou  palavra pass incorreta" });
 			} else {
 				user.password = undefined;
-				const id: string = user._id.toString();
-				const token = authToke(id);
+				const refreshToken = await GeneteRefreshToken.execute(user._id.toString());
+				console.log(refreshToken)
+			 
+				const token = authToke(user._id.toString());
 				return res.json({ user, token });
 			}
 		} catch (error) {

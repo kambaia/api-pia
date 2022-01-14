@@ -39,4 +39,5 @@ export interface Iaccess_level extends Document {
 export interface IRefreshToken extends Document{
 	_id: string;
 	expireIn: number;
+	userId: IUser["_id"]
 }

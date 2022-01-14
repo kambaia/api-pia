@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import { IUser } from '../interfaces/UserInterface';
 import User from '../Models/User';
+import GeneteRefreshToken from '../Provider/GeneteRefreshToken';
 
 class UserController {
 	public async listAllUser(req: Request, res: Response): Promise<Response> {
@@ -27,6 +28,7 @@ class UserController {
             if (!user) {
 				const data = await User.create(req.body);
 				data.password = undefined;
+				
 				return res.status(200).json({ message: "Cadastro feito  com sucesso", data });
             } else {
                 return res.status(400).json({ error: "Usuário já está cadastrado" })
