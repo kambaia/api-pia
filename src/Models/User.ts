@@ -1,12 +1,12 @@
-import mongoose, { model, Schema } from "mongoose";
+import mongoose, { model, Schema, } from "mongoose";
 import bcrypt from "bcrypt";
-import { IUser, Gender } from '../interfaces/UserInterface';
+import { IUser, Gender, IRefreshToken } from '../interfaces/UserInterface';
 const userSchema: Schema = new Schema({
 	email: { type: String, required: true, unique: true },
 	firstName: { type: String, required: true },
 	lastName: { type: String, required: true },
 	phoneNumber: { type: String, required: true, unique: true},
-	studyNumber:  { type: String, required: false, unique: true},
+	studyNumber:  { type: String, required: false, unique: true,  default: 0},
 	password: {type:String, required:true},
 	gender: { type: String, enum: Object.values(Gender) },
 	active:{type:Boolean},
@@ -24,6 +24,8 @@ const userSchema: Schema = new Schema({
 		postCode: { type: String }
 	},
 	roles: { type: mongoose.Schema.Types.ObjectId, ref: "Roles" },
+	idUser: { type: mongoose.Schema.Types.ObjectId, ref: "RefreshTo" },
+
 }, { timestamps: true });                                                                                                       
 
 userSchema.index({ email: 1 });
