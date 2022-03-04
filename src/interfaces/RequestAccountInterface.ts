@@ -1,3 +1,4 @@
+import { Document } from "mongoose";
 import { IStudent } from "./StudentInterfece";
 export interface IRequestAccount extends Document{
    _id:String;

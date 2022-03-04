@@ -1,3 +1,4 @@
+import { Document } from "mongoose";
 import { IClass, IFee, IGroup } from "./InicializeConfigInstitutionInterface"
 import { IUser } from "./UserInterface"
 export interface IRegistrationAnrol extends Document{

@@ -1,3 +1,4 @@
+import { Document } from "mongoose";
 import { ISchool } from "./SchoolInterface";
 import { IUniversity } from "./UniversityInterface";
 import { IUser } from "./UserInterface"

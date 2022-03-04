@@ -1,5 +1,5 @@
+import { Document } from "mongoose";
 import { Address, IUser } from "./UserInterface"
-
 export interface ISchool extends Document{
    _id:String;
    schoolPhoto: string;

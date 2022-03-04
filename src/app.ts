@@ -35,7 +35,7 @@ class App {
 	}
 	
 	private main_routes(): void {
-		this.express.get("/", (req, res) => {
+		this.express.get("/", (_req, res) => {
 			res.send(`
 				 <body style="display:flex;justify-content: center;  align-items: center;background-color:black;color:black;text-align:center;padding:30px; font-size:40pt;">
 				<h2  style="color:#008bd0;text-align:center;padding:30px; font-size:40pt;">Seja bem-vindo ao sistema de pagamentos instituicional Angola.</h2>

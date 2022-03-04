@@ -1,5 +1,4 @@
-
-
+import { Document } from "mongoose";
 export interface IClass extends Document {
    _id:String;
    classMat?: string;

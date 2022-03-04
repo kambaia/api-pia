@@ -1,6 +1,5 @@
-import { Address, IUser } from "./UserInterface"
-
-
+import { Document } from "mongoose";
+import { Address, IUser } from "./UserInterface";
 export interface IUniversity extends Document {
 	_id?: string;
 	universityPhoto: string;

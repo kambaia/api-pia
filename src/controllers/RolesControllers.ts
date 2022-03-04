@@ -1,9 +1,8 @@
 import { Request, Response } from 'express'
-import { Iaccess_level } from '../interfaces/UserInterface';
 import Roles from '../Models/Access_Level';
 class UserController {
-	public async listRoles(req: Request, res: Response): Promise<Response> {
-		const roles: Iaccess_level[] = await Roles.find();
+	public async listRoles(_req: Request, res: Response): Promise<Response> {
+		const roles = await Roles.find();
 		return res.send(roles);
 	}
 	public async saveRoles(req: Request, res: Response): Promise<Response> {
@@ -13,7 +12,6 @@ class UserController {
 		} catch (error) {
 			return res.status(200).json({ message: "Aconteceu um erro ao cadastrar", error });
 		}
-
 	}
 
 }

@@ -1,5 +1,5 @@
+import { Document } from "mongoose";
 import { Address, IUser } from "./UserInterface"
-
 export interface IParents extends Document {
 	_id?: string;
 	parentPhoto: string;

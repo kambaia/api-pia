@@ -1,6 +1,11 @@
-import mongoose, { model, Schema, } from "mongoose";
-import bcrypt from "bcrypt";
-import { IUser, Gender, IRefreshToken } from '../interfaces/UserInterface';
+import mongoose, { Model, Schema } from "mongoose";
+import { IUser, Gender } from '../interfaces/UserInterface';
+import AuthService from "../services/auth";
+import logger from '../config/logger'
+export enum CUSTOM_VALIDATION {
+	DUPLICATED = 'DUPLICATED',
+  }
+
 const userSchema: Schema = new Schema({
 	email: { type: String, required: true, unique: true },
 	firstName: { type: String, required: true },
@@ -21,43 +26,41 @@ const userSchema: Schema = new Schema({
 	address: {
 		street: { type: String },
 		city: { type: String },
-		postCode: { type: String }
+		province: { type: String },
+		country:{type:String}
 	},
 	roles: { type: mongoose.Schema.Types.ObjectId, ref: "Roles" },
 	idUser: { type: mongoose.Schema.Types.ObjectId, ref: "RefreshTo" },
+	
 
-}, { timestamps: true });                                                                                                       
+},
+ { timestamps: true }
+ );                                                                                                       
 
-userSchema.index({ email: 1 });
-// Virtual method
-userSchema.virtual("fullName").get(function (this: IUser) {
-	return `${this.firstName} ${this.lastName}`;
-});
-// When the user registers
-userSchema.pre(
-	"save",
-	async function (this: IUser, next: mongoose.HookNextFunction) {
-		// only hash the password if it has been modified (or is new)
-		if (!this.isModified("password")) return next();
-		// Random additional data
-		const salt = await bcrypt.genSalt(10);
-
-		const hash = await bcrypt.hashSync(this.password!, salt);
-
-		// Replace the password with the hash
-		this.password = hash;
-		return next();
+  
+  /**
+   * Validates the email and throws a validation error, otherwise it will throw a 500
+   */
+  userSchema.path('email').validate(
+	async (email: string) => {
+	  const emailCount = await mongoose.models.User.countDocuments({ email });
+	  return !emailCount;
+	},
+	'already exists in the database.',
+	CUSTOM_VALIDATION.DUPLICATED
+  );
+  
+  userSchema.pre<IUser>('save', async function (): Promise<void> {
+	if (!this.password || !this.isModified('password')) {
+	  return;
 	}
-);
-
-// Compare a candidate password with the user's password
-userSchema.methods.comparePassword = async function (
-	candidatePassword: string
-): Promise<boolean> {
-	// So we don't have to pass this into the interface method
-	const user = this as IUser;
-	return bcrypt.compare(candidatePassword, user.password!).catch((e) => false);
-};
+	try {
+	  const hashedPassword = await AuthService.hashPassword(this.password);
+	  this.password = hashedPassword;
+	} catch (err) {
+	  logger.error(`Error hashing the password for the user ${this.userName}`, err);
+	}
+  });
 
 // Export the model and return your IUser interface
-export default model<IUser>('User', userSchema);
+export const User:Model<IUser> = mongoose.models.User || mongoose.model('User', userSchema);

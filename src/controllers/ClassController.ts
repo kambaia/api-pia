@@ -1,11 +1,9 @@
 import { Request, Response } from 'express'
-import { IClass } from '../interfaces/InicializeConfigInstitutionInterface';
 import Class from '../Models/Class';
-import User from '../Models/User';
 class classController {
 	public async listAllClasses(res: Response): Promise<Response> {
 		try {
-			const classResult: IClass[] = await Class.find();
+			const classResult = await Class.find();
 			return res.status(200).send(classResult);
 		} catch (error) {
 			return res.status(404).json("Nenhuma classe foi encontrada");
@@ -46,7 +44,7 @@ class classController {
 	public async delete(req: Request, res: Response): Promise<Response> {
 		try {
 			const id = req.params.id;
-			const resultClass = await User.findByIdAndDelete(id);
+			const resultClass = await Class.findByIdAndDelete(id);
 		
 			if (resultClass) {
 				return res.status(204).send("Deletado com sucesso")

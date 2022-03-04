@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
-import { IUser } from '../interfaces/UserInterface';
-import User from '../Models/User';
+import {User} from '../Models/User';
 import { authToke } from '../utils';
 import GeneteRefreshToken from '../Provider/GeneteRefreshToken';
 
@@ -10,7 +9,7 @@ class authUsersController {
 		try {
 			const { email, password } = req.body;
 
-			const user = await User.findOne({ email }).select('+password').populate('roles', 'level type role') as IUser;
+			const user = await User.findOne({ email }).select('+password').populate('roles', 'level type role');
 			if (!user)
 				return res.json({ message: "E-mail ou  palavra pass incorreta" });
 			if (!await bcrypt.compare(password, user.password!)) {
@@ -18,10 +17,8 @@ class authUsersController {
 			} else {
 				user.password = undefined;
 				const refreshToken = await GeneteRefreshToken.execute(user._id.toString());
-				console.log(refreshToken)
-			 
 				const token = authToke(user._id.toString());
-				return res.json({ user, token });
+				return res.json({ user, token, refreshToken });
 			}
 		} catch (error) {
 			return res.status(400).json({ error: "Usuário inválido" });
@@ -31,7 +28,7 @@ class authUsersController {
 	public async authinticationParents(req: Request, res: Response): Promise<Response> {
 		try {
 			const { phoneNumber, password } = req.body;
-			const user = await User.findOne({ phoneNumber: phoneNumber }).select('+password').populate('roles', '_id level role type ') as IUser;
+			const user = await User.findOne({ phoneNumber: phoneNumber }).select('+password').populate('roles', '_id level role type ');
 			if (!user)
 				return res.json({ message: "E-mail ou  palavra pass incorreta" });
 			if (!await bcrypt.compare(password, user.password!))
@@ -49,7 +46,7 @@ class authUsersController {
 	public async authinticationStudent(req: Request, res: Response): Promise<Response> {
 		try {
 			const { studyNumber, password } = req.body;
-			const user = await User.findOne({ studyNumber: studyNumber }).select('+password').populate('roles', '_id level role type ') as IUser;
+			const user = await User.findOne({ studyNumber: studyNumber }).select('+password').populate('roles', '_id level role type ');
 			if (!user)
 				return res.json({ message: "E-mail ou  palavra pass incorreta" });
 			if (!await bcrypt.compare(password, user.password!))

@@ -2,6 +2,7 @@ import { Document } from 'mongoose';
 export interface IUser extends Document {
 	_id:String;
 	email: string;
+	userName:string,
 	firstName: string;
 	lastName: string;
 	password?: string;
@@ -16,8 +17,8 @@ export interface IUser extends Document {
 	active:boolean;
 }
 export enum Gender {
-	male = 'male',
-	female = 'female',
+	masculino = 'Masculino',
+	femenino = 'Femenino',
 	undisclosed = 'undisclosed'
 }
 
