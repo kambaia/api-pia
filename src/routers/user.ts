@@ -6,7 +6,7 @@ import requestAccount from '../controllers/requestAccount';
 import UserController from '../controllers/UserController';
 import { securetyUser } from '../middlewares/ensureAuthenticated'
 export const userRouter = Router();
-userRouter.get('/api/users', securetyUser, UserController.listAllUser);
+userRouter.get('/api/users', UserController.listAllUser);
 userRouter.get('/api/user/:userId', UserController.listUser);
 userRouter.post('/api/user', UserController.saveUser);
 userRouter.put('/api/user/:userId', UserController.updateUser);
