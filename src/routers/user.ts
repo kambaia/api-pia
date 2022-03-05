@@ -4,7 +4,7 @@ import  { Router} from 'express';
 import authUsersController from '../controllers/authUsersController';
 import requestAccount from '../controllers/requestAccount';
 import UserController from '../controllers/UserController';
-import { securetyUser } from '../middlewares/ensureAuthenticated'
+//import { securetyUser } from '../middlewares/ensureAuthenticated'
 export const userRouter = Router();
 userRouter.get('/api/users', UserController.listAllUser);
 userRouter.get('/api/user/:userId', UserController.listUser);
