@@ -1,6 +1,7 @@
 import { Document } from 'mongoose';
 export interface IUser extends Document {
 	_id:String;
+	profile:string;
 	email: string;
 	userName:string,
 	firstName: string;
@@ -9,7 +10,7 @@ export interface IUser extends Document {
 	gender?: Gender;
 	address?: Address;
 	phoneNumber?: string;
-	studyNumber?:string;
+	studentNumber?:string;
 	createdAt: Date;
 	updatedAt: Date;
 	roles: Iaccess_level["_id"];

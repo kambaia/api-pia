@@ -6,9 +6,14 @@ export interface ISchool extends Document{
    schoolCover:string;
    schoolName:string;
    schoolIdentity:string;
-   birthDateFundation: string;
+   fundationDate: string;
    adress: Address;
-   shoolRepresentative:IUser["_id"]
+   shoolRepresentative:IUser["_id"];
+   definitionsSchool: IdefinitionsSchool
    createdAt: Date;
    updatedAt: Date;
+}
+
+export interface IdefinitionsSchool extends Document{
+	colorSchool:string
 }

@@ -16,8 +16,8 @@ userRouter.delete('/api/user/:userId', UserController.deleteUser);
 
 /********************************authintication ************************ */
 
-userRouter.post("/api/auth_schools", authUsersController.authinticationShools);
-userRouter.post("/api/auth_parents", authUsersController.authinticationParents);
+userRouter.post("/api/session_school", authUsersController.authinticationShools);
+userRouter.post("/api/session_parent", authUsersController.authinticationParents);
 userRouter.post("/api/auth_students", authUsersController.authinticationStudent);
 //userRouter.post("/api/auth_students", authUsersController.authinticationStudent);
 

@@ -6,7 +6,7 @@ export interface IUniversity extends Document {
 	universityCover: string;
 	universityName: string;
 	universityIdentity: string;
-	birthDateFundation: string;
+	fundationDate: string;
 	adress: Address;
 	universityRepresentative: IUser["_id"]
 	createdAt: Date;

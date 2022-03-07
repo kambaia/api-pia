@@ -27,14 +27,16 @@ class authUsersController {
 
 	public async authinticationParents(req: Request, res: Response): Promise<Response> {
 		try {
-			const { phoneNumber, password } = req.body;
-			const user = await User.findOne({ phoneNumber: phoneNumber }).select('+password').populate('roles', '_id level role type ');
-			if (!user)
+			const { phoneNumber, password, email} = req.body;
+			const user = await User.find({
+				$or: [{ email: email }, { phoneNumber:phoneNumber }],
+			  }).select('+password').populate('roles', 'level type role');
+			if (user.length ===0)
 				return res.json({ message: "E-mail ou  palavra pass incorreta" });
-			if (!await bcrypt.compare(password, user.password!))
+			if (!await bcrypt.compare(password, user[0].password!))
 				return res.json({ message: "E-mail ou  palavra pass incorreta" });
-			user.password = undefined;
-			const id: string = user._id.toString();
+			user[0].password = undefined;
+			const id: string = user[0]._id.toString();
 			const token = authToke(id);
 			return res.json({ user, token });
 		} catch (error) {
@@ -45,8 +47,9 @@ class authUsersController {
 
 	public async authinticationStudent(req: Request, res: Response): Promise<Response> {
 		try {
-			const { studyNumber, password } = req.body;
-			const user = await User.findOne({ studyNumber: studyNumber }).select('+password').populate('roles', '_id level role type ');
+			const { studentNumber, password } = req.body;
+			const user = await User.findOne({ studentNumber: studentNumber }).select('+password').populate('roles', '_id level role type ');
+			
 			if (!user)
 				return res.json({ message: "E-mail ou  palavra pass incorreta" });
 			if (!await bcrypt.compare(password, user.password!))
@@ -56,10 +59,9 @@ class authUsersController {
 			const token = authToke(id);
 			return res.json({ user, token });
 		} catch (error) {
-			return res.status(400).json({ error: "Usuário inválido" });
+			return res.status(401).json({ error: "Usuário inválido" });
 		}
 	}
-
 }
 
 

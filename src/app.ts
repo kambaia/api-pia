@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import path from 'path';
-import { classRouter, roleRouter, userRouter } from './routers';
+import { classRouter, roleRouter, schoolRouter, userRouter } from './routers';
 import { groupRouter } from './routers/group';
 dotenv.config();
 
@@ -24,13 +24,14 @@ class App {
 		this.express.use(express.urlencoded({ extended: false }));
 	}
 	private database(): void {
-		db(process.env.MONGO_SERVER_KEY);
+		db(process.env.MONGO_local_KEY);
 	}
     private system_router():void {
 		this.express.use(userRouter);
 		this.express.use(roleRouter);
 		this.express.use(classRouter);
 		this.express.use(groupRouter);
+		this.express.use(schoolRouter);
 
 	}
 	

@@ -1,14 +1,26 @@
-import mongoose, { model, Schema } from "mongoose";
+import mongoose, { Model, Schema } from "mongoose";
 import { ISchool } from "../interfaces/SchoolInterface";
 
 const schoolShema: Schema = new Schema({
-   schoolPhoto: { type: String, required: true },
-   schoolCover: { type: String, required: true },
-   schoolName: { type: String, required: true },
-   schoolIdentity: { type: String, required: true },
-   birthDateFundation: { type: String, required: true },
-   shoolRepresentative: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+	schoolLogo: { type: String, required: true },
+	schoolCover: { type: String, required: true },
+	schoolName: { type: String, required: true },
+	schoolIdentity: { type: String, required: true },
+	fundationDate: { type: String, required: true },
+	shoolRepresentative: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+	address: {
+		street: { type: String },
+		city: { type: String },
+		province: { type: String },
+		country: { type: String }
+	},
+	definition: {
+		 colorSchool:String
+	},
 }, {
-   timestamps: true
+	timestamps: true
 })
-export default model<ISchool>('School', schoolShema);
+
+// Export the model and return your IUser interface
+export const School:Model<ISchool> = mongoose.models.School || mongoose.model('School', schoolShema);
+

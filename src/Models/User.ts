@@ -1,19 +1,22 @@
 import mongoose, { Model, Schema } from "mongoose";
 import { IUser, Gender } from '../interfaces/UserInterface';
 import AuthService from "../services/auth";
-import logger from '../config/logger'
+import logger from '../config/logger';
 export enum CUSTOM_VALIDATION {
 	DUPLICATED = 'DUPLICATED',
   }
 
 const userSchema: Schema = new Schema({
-	email: { type: String, required: true },
-	firstName: { type: String, required: true },
-	lastName: { type: String, required: true },
+	profile: String,
+	userName:{ type: String, required: true},
+	email: { type: String, required: true, unique:true},
+	firstName: { type: String},
+	lastName: { type: String},
 	phoneNumber: { type: String, required: true},
 	password: {type:String, required:true},
 	gender: { type: String, enum: Object.values(Gender) },
 	active:{type:Boolean},
+	studentNumber: String,
 	passwordResetToken: {
         type: String,
         select: false,
@@ -28,10 +31,7 @@ const userSchema: Schema = new Schema({
 		province: { type: String },
 		country:{type:String}
 	},
-	roles: { type: mongoose.Schema.Types.ObjectId, ref: "Roles" },
-	idUser: { type: mongoose.Schema.Types.ObjectId, ref: "RefreshTo" },
-	
-
+	roles: { type: mongoose.Schema.Types.ObjectId, ref: "Roles" }
 },
  { timestamps: true }
  );                                                                                                       
