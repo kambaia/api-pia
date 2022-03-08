@@ -21,6 +21,7 @@ export interface IStudent extends Document{
    universityId?: IUniversity["_id"];
    address: Address;
    gender: Gender;
+   parents: Iparents;
    registerDate:string;
    studentHistory?:IStudentHistory;
    createdAt: Date;
