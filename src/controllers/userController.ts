@@ -4,6 +4,8 @@ class UserController {
   public async listAllUser(_req: Request, res: Response): Promise<void> {
     try {
       const users = await User.find().populate('roles', '_id role type livel')
+      const Json = JSON.stringify(users);
+      console.log(Json)
       res.status(200).send(users)
     } catch (error) {
 		res.status(404).send(error);

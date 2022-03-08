@@ -23,7 +23,7 @@ class App {
 		this.express.use(express.urlencoded({ extended: false }));
 	}
 	private database(): void {
-		db(process.env.MONGO_local_KEY);
+		db(process.env.MONGO_SERVER_KEY);
 	}
     private system_router():void {
 		this.express.use(userRouter);
