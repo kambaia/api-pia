@@ -3,6 +3,7 @@ após devidamente configurado, é só entrar no mongodb via shell:
 mongo
 para sair do mongodb, basta rodar o comando: exit.
 
+const studentId = Math.floor(Math.random()*900000) + 100000;
 
 Instalação no Ubuntu 20.04
 Atualizações e dependências

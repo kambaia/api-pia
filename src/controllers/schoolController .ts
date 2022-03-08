@@ -10,6 +10,7 @@ class schoolController {
 			res.status(404).send(error)
 		}
 	}
+	
 	public async listOneSchool(req: Request, res: Response): Promise<void> {
 		const { schoolId } = req.params
 		try {
@@ -25,9 +26,14 @@ class schoolController {
 	}
 	public async saveSchool(req: Request, res: Response): Promise<void> {
 		try {
+			const first = Math.floor(Math.random()*900000) + 100000;
+			const send = Math.floor(Math.random()*900000) + 100000;
+			let schoolData= req.body;
+			schoolData.schoolCode=`2022-${first}.${send}`
 			const school = await School.find({
-				$or: [{ schoolName: req.body.schoolName },
-				{ schoolIdentity: req.body.schoolIdentity }
+				$or: [{ schoolName: schoolData.schoolName },
+				{ schoolIdentity: schoolData.schoolIdentity },
+				{ schoolCode: schoolData.schoolCode }
 				],
 			})
 			if (school.length > 0) {

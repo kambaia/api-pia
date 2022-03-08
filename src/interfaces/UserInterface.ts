@@ -1,4 +1,5 @@
 import { Document } from 'mongoose';
+import { string } from 'yup';
 export interface IUser extends Document {
 	_id:String;
 	profile:string;
@@ -9,6 +10,7 @@ export interface IUser extends Document {
 	password?: string;
 	gender?: Gender;
 	address?: Address;
+	contact?:Contact
 	phoneNumber?: string;
 	studentNumber?:string;
 	createdAt: Date;
@@ -24,10 +26,14 @@ export enum Gender {
 }
 
 export interface Address extends Document {
-
 	street: string;
 	city: string;
 	postCode: string;
+}
+export interface Contact extends Document {
+	unitel:string;
+	movicel:string;
+	fixe:string;
 }
 export interface Iaccess_level extends Document {
 	_id: string;

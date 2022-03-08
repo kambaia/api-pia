@@ -2,6 +2,7 @@ import mongoose, { Model, Schema } from "mongoose";
 import { ISchool } from "../interfaces/SchoolInterface";
 
 const schoolShema: Schema = new Schema({
+	schoolCode:String,
 	schoolLogo: { type: String, required: true },
 	schoolCover: { type: String, required: true },
 	schoolName: { type: String, required: true },
@@ -13,6 +14,11 @@ const schoolShema: Schema = new Schema({
 		city: { type: String },
 		province: { type: String },
 		country: { type: String }
+	},
+	contact: {
+		unitel:String,
+		movicel:String,
+		fixe:String,
 	},
 	definition: {
 		 colorSchool:String

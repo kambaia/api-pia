@@ -2,8 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import path from 'path';
-import { classRouter, roleRouter, schoolRouter, userRouter } from './routers';
-import { groupRouter } from './routers/group';
+import { roleRouter, schoolRouter, userRouter, definitionsSchoolRouter } from './routers';
 dotenv.config();
 
 let db = require('./config/db');
@@ -29,8 +28,7 @@ class App {
     private system_router():void {
 		this.express.use(userRouter);
 		this.express.use(roleRouter);
-		this.express.use(classRouter);
-		this.express.use(groupRouter);
+		this.express.use(definitionsSchoolRouter);
 		this.express.use(schoolRouter);
 
 	}

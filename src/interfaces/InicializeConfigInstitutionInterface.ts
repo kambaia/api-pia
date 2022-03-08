@@ -1,16 +1,19 @@
 import { Document } from "mongoose";
+import { ISchool } from "./SchoolInterface";
 export interface IClass extends Document {
    _id:String;
-   classMat?: string;
+   className?: string;
    createdAt: Date;
 	updatedAt: Date;
-   yaer?:string
+   yaer?:string;
+   schoolId:  ISchool["_id"];
 }
 export interface IGroup extends Document {
    _id:String;
     group?: string;
     createdAt: Date;
     updatedAt: Date;
+    schoolId:  ISchool["_id"];
  }
 
  export interface IFee extends Document {
@@ -18,6 +21,7 @@ export interface IGroup extends Document {
     fee?: string;
     createdAt: Date;
     updatedAt: Date;
+    schoolId:  ISchool["_id"];
  }
 
  export interface ICourse extends Document {
@@ -25,6 +29,7 @@ export interface IGroup extends Document {
     couse?: string;
     createdAt: Date;
     updatedAt: Date;
+    schoolId:  ISchool["_id"];
  }
  
  export interface IDiscipline extends Document {
@@ -33,4 +38,5 @@ export interface IGroup extends Document {
     cigla: string;
     createdAt: Date;
     updatedAt: Date;
+    schoolId:  ISchool["_id"];
  }

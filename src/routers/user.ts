@@ -3,7 +3,7 @@
 import  { Router} from 'express';
 import authUsersController from '../controllers/authUsersController';
 import requestAccount from '../controllers/requestAccount';
-import UserController from '../controllers/UserController';
+import UserController from '../controllers/userController';
 //import { securetyUser } from '../middlewares/ensureAuthenticated'
 export const userRouter = Router();
 userRouter.get('/api/users', UserController.listAllUser);

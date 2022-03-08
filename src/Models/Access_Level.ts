@@ -1,7 +1,7 @@
 import { model, Schema } from "mongoose";
 import { Iaccess_level } from '../interfaces/UserInterface';
 const Access_LevelSchema: Schema = new Schema({
-	livel: {
+	level: {
 		type: Number,
 		default: 0
 	},

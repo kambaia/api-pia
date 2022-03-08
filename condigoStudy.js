@@ -21,6 +21,28 @@ export const createReview = (req, res) => {
 };
 /* 
 46
+router.get('/:gender', (req, res, next) => {
+    Product.find({
+        "userTbId.gender": req.params.gender
+    })
+    .populate({
+        path: 'userTbId',
+        match: {
+            userId: req.params.userId
+        }
+    })
+    .exec()
+    .then(docs => {
+        res.status(200).json({
+            docs
+        }); 
+    })
+    .catch(err => {
+        res.status(500).json({
+            error: err
+        });
+    });
+});
 
 As respostas anteriores a esta pergunta foram úteis, mas pode ser útil ver um código mais detalhado. O código abaixo é do meu backend Express.js para meu aplicativo. Meu aplicativo permite que os usuários escrevam comentários. Ao consultar o usuário, devolvo todas as avaliações que o usuário fez.
 

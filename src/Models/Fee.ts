@@ -1,4 +1,4 @@
-import { model, Schema } from "mongoose"
+import mongoose, { model, Schema } from 'mongoose';
 import { IFee } from "../interfaces/InicializeConfigInstitutionInterface"
 const feeShema: Schema = new Schema({
    fee: {
@@ -9,6 +9,7 @@ const feeShema: Schema = new Schema({
       type: Date,
       default: Date.now
    },
+   schoolId: { type: mongoose.Schema.Types.ObjectId, ref: "School" },
    updateAT: {
       type: Date,
       default: Date.now

@@ -7,6 +7,11 @@ class UserController {
 	}
 	public async saveRoles(req: Request, res: Response): Promise<Response> {
 		try {
+		     const { level,  role } = req.body;
+			const resultRole= await Roles.find({level:level,  role: role});
+			if(resultRole.length >0){
+				return res.status(409).json({ message: "O nivel de acesso já existe" });
+			}
 			const roles = await Roles.create(req.body);
 			return res.send(roles);
 		} catch (error) {

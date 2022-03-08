@@ -1,4 +1,4 @@
-import { model, Schema } from "mongoose";
+import mongoose, { model, Schema } from 'mongoose';
 import { ICourse } from "../interfaces/InicializeConfigInstitutionInterface";
 
 const schemaCourse: Schema = new Schema({
@@ -6,9 +6,10 @@ const schemaCourse: Schema = new Schema({
       type: String,
       required: true
    },
-   cigla: {
+   sigla: {
       type: String,
    },
+   schoolId: { type: mongoose.Schema.Types.ObjectId, ref: "School" },
 }, {
    timestamps: true
 })

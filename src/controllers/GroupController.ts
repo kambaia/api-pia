@@ -3,48 +3,56 @@ import {IGroup } from '../interfaces/InicializeConfigInstitutionInterface';
 import Class from '../Models/Class';
 import Group from '../Models/Group';
 class GroupController {
-	public async listAll(res: Response): Promise<Response> {
+	public async listAllGroups(_req: Request, res: Response): Promise<Response> {
 		try {
-			const groupResult: IGroup[] = await Group.find();
+			const groupResult: IGroup[] = await Group.find({});
 			return res.status(200).send(groupResult);
 		} catch (error) {
-			return res.status(404).json("Nenhuma classe foi encontrada");
+			return res.status(404).json("Nenhuma turma foi encontrada");
 		}
 	}
-	public async listOne(req: Request, res: Response): Promise<Response> {
+	public async listOneGroup(req: Request, res: Response): Promise<Response> {
 		const { groupId } = req.params;
 		try {
-			const groupResult = await Class.find({_id: groupId});
+			const groupResult = await Class.findOne({_id: groupId});
 			return res.status(200).send(groupResult);
 		} catch (error) {
 			return res.status(404).json("Nenhuma turma cadastrado");
 		}
 
 	}
-	public async save(req: Request, res: Response): Promise<Response> {
+	public async saveGroup(req: Request, res: Response): Promise<Response> {
 		try {
+			let groupResult = await Group.find({ goup: req.body.goup });
+			if (groupResult.length > 0) {
+			  return res
+				.status(409)
+				.json({
+				  message: "Está turma já existe. Adicione outra que ainda não exista",
+				});
+			}
 			const goupResult = await Group.create(req.body);
 			return res.status(200).json({ message: "Cadastro feito  com sucesso", goupResult });
 		} catch (error) {
 			return res.status(500).json({ message: "Orrou um error ao cadastrar a turma" });
 		}
 	}
-	public async update(req: Request, res: Response): Promise<Response> {
+	public async updateGroup(req: Request, res: Response): Promise<Response> {
 		try {
 			const data = req.body;
 
 			const { groudId } = req.params;
-			const groudResult = await Group.updateOne({_id: groudId}, {$set: data}, {new:false});
+			const groudResult = await Group.findByIdAndUpdate({_id: groudId}, {$set: data}, {new:false});
 			console.log(groudResult);
 			return res.status(200).json({ message: "As suas informações foram actualizadas com sucesso", groudResult });
 		} catch (error) {
 			return res.status(200).json({ message: "Aconteceu um erro ao atualizada", error });
 		}
 	}
-	public async delete(req: Request, res: Response): Promise<Response> {
+	public async deleteGroup(req: Request, res: Response): Promise<Response> {
 		try {
-			const id = req.params.id;
-			const resultGroup = await Group.findByIdAndDelete(id);
+			const {groudId} = req.params;
+			const resultGroup = await Group.findByIdAndDelete(groudId);
 		
 			if (resultGroup) {
 				return res.status(204).send("Deletado com sucesso")
