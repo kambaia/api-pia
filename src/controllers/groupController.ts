@@ -5,7 +5,7 @@ import Group from '../Models/Group';
 class GroupController {
 	public async listAllGroups(_req: Request, res: Response): Promise<Response> {
 		try {
-			const groupResult: IGroup[] = await Group.find({});
+			const groupResult: IGroup[] = await Group.find({}).populate("schoolId", "schoolLogo schoolName ");
 			return res.status(200).send(groupResult);
 		} catch (error) {
 			return res.status(404).json("Nenhuma turma foi encontrada");
@@ -14,7 +14,7 @@ class GroupController {
 	public async listOneGroup(req: Request, res: Response): Promise<Response> {
 		const { groupId } = req.params;
 		try {
-			const groupResult = await Class.findOne({_id: groupId});
+			const groupResult = await Class.findOne({_id: groupId}).populate("schoolId", "schoolLogo schoolName ");
 			return res.status(200).send(groupResult);
 		} catch (error) {
 			return res.status(404).json("Nenhuma turma cadastrado");

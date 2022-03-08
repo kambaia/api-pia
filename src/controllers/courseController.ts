@@ -17,7 +17,7 @@ class CourseController {
   public async listOneCourse(req: Request, res: Response): Promise<Response> {
     const { courseId } = req.params;
     try {
-      const courseResult = await Class.find({ _id: courseId });
+      const courseResult = await Class.find({ _id: courseId }).populate("schoolId", "schoolLogo schoolName ");
       return res.status(200).send(courseResult);
     } catch (error) {
       return res.status(404).json("Nenhuma turma cadastrado");

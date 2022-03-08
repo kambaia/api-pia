@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import path from 'path';
-import { roleRouter, schoolRouter, userRouter, definitionsSchoolRouter } from './routers';
+import { roleRouter, schoolRouter, userRouter, studentRouter, definitionsSchoolRouter } from './routers';
 dotenv.config();
 
 let db = require('./config/db');
@@ -13,7 +13,7 @@ class App {
 		this.middlewares();
 		this.database();
 		this.main_routes();
-		this.system_router();
+		this.system_router();;
 	}
 
 	private middlewares(): void {
@@ -30,6 +30,7 @@ class App {
 		this.express.use(roleRouter);
 		this.express.use(definitionsSchoolRouter);
 		this.express.use(schoolRouter);
+		this.express.use(studentRouter);
 
 	}
 	

@@ -13,7 +13,7 @@ class DisciplineController {
   public async listDiscipline(req: Request, res: Response): Promise<Response> {
     const { displinaId } = req.params;
     try {
-      const disciplineResult = await Discipline.findOne({ _id: displinaId });
+      const disciplineResult = await Discipline.findOne({ _id: displinaId }).populate("schoolId", "schoolLogo schoolName ");
       return res.status(200).send(disciplineResult);
     } catch (error) {
       return res.status(404).json("Nenhum usuário cadastrado");
