@@ -12,7 +12,7 @@ class classController {
   public async listClass(req: Request, res: Response): Promise<Response> {
     const { classId } = req.params;
     try {
-      const classResult = await Class.find({ _id: classId });
+      const classResult = await Class.find({ _id: classId }).populate("schoolId", "schoolLogo schoolName ");
       return res.status(200).send(classResult);
     } catch (error) {
       return res.status(404).json("Nenhum usuário cadastrado");

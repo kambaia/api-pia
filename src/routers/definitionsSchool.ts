@@ -1,14 +1,14 @@
 import  { Router} from 'express';
-import ClassController from '../controllers/classController';
+import classController from '../controllers/classController';
 import courseController from '../controllers/courseController';
 import disciplineController from '../controllers/disciplinaController';
-import groupController from '../controllers/GroupController';
+import groupController from '../controllers/groupController';
 export const definitionsSchoolRouter = Router();
 /*******************************routers to register all de class ********************* */
-definitionsSchoolRouter.get('/api/classes', ClassController.listAllClasses);
-definitionsSchoolRouter.post('/api/class', ClassController.saveClass);
-definitionsSchoolRouter.put('/api/class/:classId', ClassController.updateClass);
-definitionsSchoolRouter.delete('/api/class/:classId', ClassController.deleteClass);
+definitionsSchoolRouter.get('/api/classes', classController.listAllClasses);
+definitionsSchoolRouter.post('/api/class', classController.saveClass);
+definitionsSchoolRouter.put('/api/class/:classId', classController.updateClass);
+definitionsSchoolRouter.delete('/api/class/:classId', classController.deleteClass);
 
 
 /*******************************routers to register all de course ********************* */

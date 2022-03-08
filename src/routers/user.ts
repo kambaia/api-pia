@@ -3,16 +3,14 @@
 import  { Router} from 'express';
 import authUsersController from '../controllers/authUsersController';
 import requestAccount from '../controllers/requestAccount';
-import UserController from '../controllers/userController';
+import userController from '../controllers/userController';
 //import { securetyUser } from '../middlewares/ensureAuthenticated'
 export const userRouter = Router();
-userRouter.get('/api/users', UserController.listAllUser);
-userRouter.get('/api/user/:userId', UserController.listUser);
-userRouter.post('/api/user', UserController.saveUser);
-userRouter.put('/api/user/:userId', UserController.updateUser);
-userRouter.delete('/api/user/:userId', UserController.deleteUser);
-
-
+userRouter.get('/api/users', userController.listAllUser);
+userRouter.get('/api/user/:userId', userController.listUser);
+userRouter.post('/api/user', userController.saveUser);
+userRouter.put('/api/user/:userId', userController.updateUser);
+userRouter.delete('/api/user/:userId', userController.deleteUser);
 
 /********************************authintication ************************ */
 

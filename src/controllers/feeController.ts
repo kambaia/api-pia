@@ -4,7 +4,7 @@ import Fee from "../Models/Fee";
 class FeeController {
   public async listAllFee(_req: Request, res: Response): Promise<Response> {
     try {
-      const feeResult: IFee[] = await Fee.find();
+      const feeResult: IFee[] = await Fee.find().populate("schoolId", "schoolLogo schoolName ");
       return res.status(200).send(feeResult);
     } catch (error) {
       return res.status(404).json("Nenhum tipo de propina foi encontrada");
@@ -13,7 +13,7 @@ class FeeController {
   public async listOneFee(req: Request, res: Response): Promise<Response> {
     const { feeId } = req.params;
     try {
-      const feeResult = await Fee.find({ _id: feeId });
+      const feeResult = await Fee.find({ _id: feeId }).populate("schoolId", "schoolLogo schoolName ");
       return res.status(200).send(feeResult);
     } catch (error) {
       return res.status(404).json("Nenhuma turma cadastrado");

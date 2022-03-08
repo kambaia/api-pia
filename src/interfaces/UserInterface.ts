@@ -1,5 +1,4 @@
 import { Document } from 'mongoose';
-import { string } from 'yup';
 export interface IUser extends Document {
 	_id:String;
 	profile:string;
