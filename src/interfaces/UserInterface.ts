@@ -1,4 +1,5 @@
 import { Document } from 'mongoose';
+import { ISchool } from './SchoolInterface';
 export interface IUser extends Document {
 	_id:String;
 	profile:string;
@@ -16,6 +17,7 @@ export interface IUser extends Document {
 	updatedAt: Date;
 	roles: Iaccess_level["_id"];
 	refreshToken?: IRefreshToken["_id"];
+	schoolId?:  ISchool["_id"];
 	active:boolean;
 }
 export enum Gender {

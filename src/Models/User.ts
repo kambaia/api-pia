@@ -31,7 +31,8 @@ const userSchema: Schema = new Schema({
 		province: { type: String },
 		country:{type:String}
 	},
-	roles: { type: mongoose.Schema.Types.ObjectId, ref: "Roles" }
+	roles: { type: mongoose.Schema.Types.ObjectId, ref: "Roles" },
+	schoolId: { type: mongoose.Schema.Types.ObjectId, ref: "School" }
 },
  { timestamps: true }
  );                                                                                                       

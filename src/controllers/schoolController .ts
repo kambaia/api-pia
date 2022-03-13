@@ -3,23 +3,22 @@ import { School } from '../Models/Schoole'
 class schoolController {
 	public async listAllSchool(_req: Request, res: Response): Promise<void> {
 		try {
-			const shool = await School.find().populate('shoolRepresentative');
+			const shool = await School.find({}).populate('shoolRepresentative',  "userName email firstName lastName phoneNumber gender active");
 			res.status(200).send(shool);
-
 		} catch (error) {
 			res.status(404).send(error)
 		}
 	}
 	
 	public async listOneSchool(req: Request, res: Response): Promise<void> {
-		const { schoolId } = req.params
 		try {
-			const school = await School.findById(schoolId).populate('shoolRepresentative')
+			const { schoolId } = req.params
+			const school = await School.findById(schoolId).populate('shoolRepresentative', "userName email firstName lastName phoneNumber gender active")
 			if (school) {
 				res.status(200).send(school)
+			}else{
+				res.status(404).send({ message: "Não foi encontrada nenhuma instituição." });
 			}
-			res.status(404).send({ message: "Não foi encontrada nenhuma instituição." });
-
 		} catch (error) {
 			res.status(404).send(error)
 		}

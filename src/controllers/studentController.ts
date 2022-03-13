@@ -3,9 +3,9 @@ import { Student } from '../Models/Student'
 class studentController {
 	public async listAllStudent(_req: Request, res: Response): Promise<void> {
 		try {
-			const student = await Student.find().populate('userId')
+			const student = await Student.find({}).populate('userId')
 				.populate('univercityId')
-				.populate('schoolId', )
+				.populate('schoolId',  'schoolCode schoolLogo schoolName')
 			res.status(200).send(student)
 		} catch (error) {
 			res.status(404).send(error);
@@ -53,7 +53,6 @@ class studentController {
 	public async updateStudent(req: Request, res: Response): Promise<void> {
 		try {
 			const data = req.body
-			console.log(data);
 			const { studentId } = req.params
 			const student = await Student.findByIdAndUpdate(
 				{ _id: studentId },
@@ -73,7 +72,6 @@ class studentController {
 	public async deleteStudent(req: Request, res: Response): Promise<Response> {
 		try {
 			const { studentId } = req.params;
-			console.log(studentId)
 			const student = await Student.findByIdAndDelete(studentId);
 			if (student) {
 				return res.status(200).send('Deletado com sucesso');

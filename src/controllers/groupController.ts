@@ -43,7 +43,6 @@ class GroupController {
 
 			const { groudId } = req.params;
 			const groudResult = await Group.findByIdAndUpdate({_id: groudId}, {$set: data}, {new:false});
-			console.log(groudResult);
 			return res.status(200).json({ message: "As suas informações foram actualizadas com sucesso", groudResult });
 		} catch (error) {
 			return res.status(200).json({ message: "Aconteceu um erro ao atualizada", error });
