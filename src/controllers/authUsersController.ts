@@ -8,8 +8,6 @@ class authUsersController {
 	public async authinticationShools(req: Request, res: Response): Promise<Response> {
 		try {
 			const { email, password } = req.body;
-			console.log( email, password);
-
 			const user = await User.findOne({ email }).select('+password').populate('roles', 'level type role');
 			if (!user)
 				return res.json({ message: "E-mail ou  palavra pass incorreta" });
