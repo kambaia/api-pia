@@ -8,6 +8,7 @@ class authUsersController {
 	public async authinticationShools(req: Request, res: Response): Promise<Response> {
 		try {
 			const { email, password } = req.body;
+			console.log( email, password);
 
 			const user = await User.findOne({ email }).select('+password').populate('roles', 'level type role');
 			if (!user)
@@ -21,7 +22,7 @@ class authUsersController {
 				return res.json({ user, token, refreshToken });
 			}
 		} catch (error) {
-			return res.status(400).json({ error: "Usuário inválido" });
+			return res.status(400).json({ message: "Usuário inválido", error: error });
 		}
 	}
 
