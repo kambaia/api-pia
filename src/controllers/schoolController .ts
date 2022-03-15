@@ -23,6 +23,20 @@ class schoolController {
 			res.status(404).send(error)
 		}
 	}
+	
+	public async listOneAcesss(req: Request, res: Response): Promise<void> {
+		try {
+			const { userId } = req.params
+			const school = await School.findOne({shoolRepresentative: userId}).populate('shoolRepresentative', "userName email firstName lastName phoneNumber gender active")
+			if (school) {
+				res.status(200).send(school)
+			}else{
+				res.status(404).send({ message: "Não foi encontrada nenhuma instituição." });
+			}
+		} catch (error) {
+			res.status(404).send(error)
+		}
+	}
 	public async saveSchool(req: Request, res: Response): Promise<void> {
 		try {
 			const first = Math.floor(Math.random()*900000) + 100000;
