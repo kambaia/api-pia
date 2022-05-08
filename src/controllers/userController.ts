@@ -12,26 +12,10 @@ class UserController {
       res.status(404).send(error);
     }
   }
-  public async listUser(req: Request, res: Response): Promise<void> {
+  public async accessUser(req: Request, res: Response): Promise<void> {
     try {
       const { userId } = req.params;
       const users = await User.findById(userId).populate(
-        "roles",
-        "_id role type livel"
-      ).populate('schoolId',  '_id');
-      if (users) {
-        res.status(200).send(users);
-      } else {
-        res.status(404).send({ message: "Usuário não encontrado" });
-      }
-    } catch (error) {
-      res.status(404).send(error);
-    }
-  }
-  public async listUserSchool(req: Request, res: Response): Promise<void> {
-    try {
-      const { schoolId } = req.params;
-      const users = await User.find({schoolId: schoolId}).populate(
         "roles",
         "_id role type livel"
       ).populate('schoolId',  '_id');

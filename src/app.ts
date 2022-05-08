@@ -1,5 +1,5 @@
 import express from "express";
-//import cors from "cors";
+import cors from "cors";
 import dotenv from "dotenv";
 import path from "path";
 import {
@@ -24,16 +24,7 @@ class App {
 
   private middlewares(): void {
     this.express.use(express.json());
-    this.express.use((_req, res, next) => {
-      //set headers
-      res.setHeader("Access-Control-Allow-Origin", "*");
-      res.setHeader(
-        "Access-Control-Allow-Methods",
-        "POST, GET, PUT, DELETE, OPTIONS"
-      );
-      res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-      next();
-    });
+    this.express.use(cors());
     this.express.use(
       "/files",
       express.static(path.resolve(__dirname, "tmp", "uploads"))

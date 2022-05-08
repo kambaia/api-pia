@@ -17,7 +17,12 @@ class authUsersController {
 				user.password = undefined;
 				const refreshToken = await GeneteRefreshToken.execute(user._id.toString());
 				const token = authToke(user._id.toString());
-				return res.json({ user, token, refreshToken });
+				const permision = user.roles as any;
+				const newUser = {
+					permissions: [permision.type],
+					id: user._id
+				}
+				return res.json({ user: newUser, token, refreshToken });
 			}
 		} catch (error) {
 			return res.status(400).json({ message: "Usuário inválido", error: error });

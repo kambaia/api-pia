@@ -7,8 +7,7 @@ import userController from '../controllers/userController';
 //import { securetyUser } from '../middlewares/ensureAuthenticated'
 export const userRouter = Router();
 userRouter.get('/api/users', userController.listAllUser);
-userRouter.get('/api/user/:userId', userController.listUser);
-userRouter.get('/api/user-school/:schoolId', userController.listUserSchool);
+userRouter.get('/api/user/:userId', userController.accessUser);
 userRouter.post('/api/user', userController.saveUser);
 userRouter.put('/api/user/:userId', userController.updateUser);
 userRouter.delete('/api/user/:userId', userController.deleteUser);
