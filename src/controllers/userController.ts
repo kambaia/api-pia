@@ -5,7 +5,7 @@ class UserController {
     try {
       const users = await User.find({}).populate(
         "roles",
-        "_id role type livel"
+        "_id role type"
       ).populate('schoolId',  '_id');
       res.status(200).send(users);
     } catch (error) {
@@ -20,7 +20,25 @@ class UserController {
         "_id role type livel"
       ).populate('schoolId',  '_id');
       if (users) {
-        res.status(200).send(users);
+       const newUser = {
+        address: {
+          street: users.address?.street,
+          city: users.address?.city,
+          province: users.address?.province,
+          country:  users.address?.country,
+        },
+        _id:users._id ,
+        userName:users.userName,
+        email: users.email,
+        firstName:users.firstName,
+        lastName:users.lastName,
+        phoneNumber: users.phoneNumber,
+        gender: users.gender,
+        active:users.active,
+        roles:users.roles
+       }
+  
+        res.status(200).send(newUser);
       } else {
         res.status(404).send({ message: "Usuário não encontrado" });
       }

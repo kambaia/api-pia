@@ -30,6 +30,8 @@ export interface Address extends Document {
 	street: string;
 	city: string;
 	postCode: string;
+	province:string;
+    country: string;
 }
 export interface Contact extends Document {
 	unitel:string;
