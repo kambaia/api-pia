@@ -2,7 +2,7 @@ import { Document } from 'mongoose';
 import { ISchool } from './SchoolInterface';
 export interface IUser extends Document {
 	_id:String;
-	profile:string;
+	profile?:string;
 	email: string;
 	userName:string,
 	firstName: string;
@@ -30,8 +30,10 @@ export interface Address extends Document {
 	street: string;
 	city: string;
 	postCode: string;
-	province:string;
     country: string;
+	province:string;
+	county:string;
+	neighborhood:string;
 }
 export interface Contact extends Document {
 	unitel:string;

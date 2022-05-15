@@ -7,7 +7,7 @@ export enum CUSTOM_VALIDATION {
   }
 
 const userSchema: Schema = new Schema({
-	profile: String,
+	profile:{ type: String},
 	userName:{ type: String, required: true},
 	email: { type: String, required: true, unique:true},
 	firstName: { type: String},

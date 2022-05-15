@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { School } from "../Models/Schoole";
 import { User } from "../Models/User";
 class UserController {
   public async listAllUser(_req: Request, res: Response): Promise<void> {
@@ -18,7 +19,9 @@ class UserController {
       const users = await User.findById(userId).populate(
         "roles",
         "_id role type livel"
-      ).populate('schoolId',  '_id');
+      ).populate('schoolId',  '_id schoolLogo schoolName schoolCode');
+   
+
       if (users) {
        const newUser = {
         address: {
@@ -27,17 +30,15 @@ class UserController {
           province: users.address?.province,
           country:  users.address?.country,
         },
-        _id:users._id ,
+        profile: users.profile,
+        id:users._id ,
         userName:users.userName,
-        email: users.email,
-        firstName:users.firstName,
-        lastName:users.lastName,
-        phoneNumber: users.phoneNumber,
-        gender: users.gender,
+        fullName: `${users.firstName} ${users.lastName}`,
+        email: users.email, 
         active:users.active,
-        roles:users.roles
+        permissions:users.roles,
+        school:  users.schoolId
        }
-  
         res.status(200).send(newUser);
       } else {
         res.status(404).send({ message: "Usuário não encontrado" });
@@ -46,6 +47,21 @@ class UserController {
       res.status(404).send(error);
     }
   }
+  
+	public async listOneAcesss(req: Request, res: Response): Promise<void> {
+		try {
+			const { userId } = req.params
+			const school = await School.findOne({shoolRepresentative: userId}).populate('shoolRepresentative', "userName email firstName lastName phoneNumber gender active")
+			if (school) {
+				res.status(200).send(school)
+			}else{
+				res.status(404).send({ message: "Não foi encontrada nenhuma instituição." });
+			}
+		} catch (error) {
+			res.status(404).send(error)
+		}
+	}
+
   public async saveUser(req: Request, res: Response): Promise<void> {
     try {
       const user = await User.find({
@@ -64,6 +80,7 @@ class UserController {
       res.status(500).send({ message: e });
     }
   }
+
   public async updateUser(req: Request, res: Response): Promise<void> {
     try {
       const data = req.body;

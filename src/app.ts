@@ -8,6 +8,7 @@ import {
   userRouter,
   studentRouter,
   definitionsSchoolRouter,
+  employeeRouter,
 } from "./routers";
 dotenv.config();
 
@@ -40,6 +41,7 @@ class App {
     this.express.use(definitionsSchoolRouter);
     this.express.use(schoolRouter);
     this.express.use(studentRouter);
+    this.express.use(employeeRouter);
   }
 
   private main_routes(): void {

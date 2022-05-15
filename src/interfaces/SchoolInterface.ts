@@ -6,6 +6,7 @@ export interface ISchool extends Document{
    schoolPhoto: string;
    schoolCover:string;
    schoolName:string;
+   schoolNif:string;
    schoolIdentity:string;
    fundationDate: string;
    adress?: Address;
