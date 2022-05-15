@@ -40,3 +40,8 @@ sudo systemctl start mongod
 Rodando
 
 mongo
+
+KEY_AUTH=
+MONGO_SERVER_KEY=
+
+
