@@ -70,10 +70,9 @@ class UserController {
         data.password = undefined;
 		const userdata= {
 		 profile: data.profile,
-		 fullName: data.fullName,
-		 id: data._id,
+		 ful
 		}
-        res.status(201).json({ success: "Cadastro feito  com sucesso",...userdata});
+        res.status(201).json({ success: "Cadastro feito  com sucesso",  });
       }
     } catch (error) {
       res.status(500).send({ message: error });

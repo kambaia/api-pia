@@ -68,12 +68,7 @@ class UserController {
       } else {
         const data = await User.create(req.body);
         data.password = undefined;
-		const userdata= {
-		 profile: data.profile,
-		 fullName: data.fullName,
-		 id: data._id,
-		}
-        res.status(201).json({ success: "Cadastro feito  com sucesso",...userdata});
+        res.status(201).json({ success: "Cadastro feito  com sucesso", da });
       }
     } catch (error) {
       res.status(500).send({ message: error });
