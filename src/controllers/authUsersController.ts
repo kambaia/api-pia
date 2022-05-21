@@ -8,7 +8,7 @@ class authUsersController {
 	public async authinticationShools(req: Request, res: Response): Promise<Response> {
 		try {
 			const { email, password } = req.body;
-			const user = await User.findOne({ email }).select('+password').populate('roles', 'level type role');
+			const user = await User.findOne({ email }).select('+password').populate('permission', 'level type role');
 			if (!user)
 				return res.json({ message: "E-mail ou  palavra pass incorreta" });
 			if (!await bcrypt.compare(password, user.password!)) {
@@ -17,9 +17,10 @@ class authUsersController {
 				user.password = undefined;
 				const refreshToken = await GeneteRefreshToken.execute(user._id.toString());
 				const token = authToke(user._id.toString());
-				const permision = user.roles as any;
+				const permision = user.permission as any;
 				const newUser = {
 					permissions: [permision.type],
+					role: [permision.role],
 					id: user._id
 				}
 				return res.json({ user: newUser, token, refreshToken });

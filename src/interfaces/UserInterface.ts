@@ -6,16 +6,13 @@ export interface IUser extends Document {
 	email: string;
 	userName:string,
 	firstName: string;
-	lastName: string;
+	fullName: string;
 	password?: string;
-	gender?: Gender;
-	address?: Address;
-	contact?:Contact
 	phoneNumber?: string;
 	studentNumber?:string;
 	createdAt: Date;
 	updatedAt: Date;
-	roles: Iaccess_level["_id"];
+	permission: Iaccess_level["_id"];
 	refreshToken?: IRefreshToken["_id"];
 	schoolId?:  ISchool["_id"];
 	active:boolean;

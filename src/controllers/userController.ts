@@ -5,7 +5,7 @@ class UserController {
   public async listAllUser(_req: Request, res: Response): Promise<void> {
     try {
       const users = await User.find({}).populate(
-        "roles",
+        "permission",
         "_id role type"
       ).populate('schoolId',  '_id');
       res.status(200).send(users);
@@ -17,26 +17,20 @@ class UserController {
     try {
       const { userId } = req.params;
       const users = await User.findById(userId).populate(
-        "roles",
+        "permission",
         "_id role type livel"
       ).populate('schoolId',  '_id schoolLogo schoolName schoolCode');
    
 
       if (users) {
        const newUser = {
-        address: {
-          street: users.address?.street,
-          city: users.address?.city,
-          province: users.address?.province,
-          country:  users.address?.country,
-        },
         profile: users.profile,
         id:users._id ,
         userName:users.userName,
-        fullName: `${users.firstName} ${users.lastName}`,
+        fullName: users.fullName,
         email: users.email, 
         active:users.active,
-        permissions:users.roles,
+        permissions:users.permission,
         school:  users.schoolId
        }
         res.status(200).send(newUser);
@@ -76,8 +70,8 @@ class UserController {
         data.password = undefined;
         res.status(201).json({ success: "Cadastro feito  com sucesso", data });
       }
-    } catch (e) {
-      res.status(500).send({ message: e });
+    } catch (error) {
+      res.status(500).send({ message: error });
     }
   }
 

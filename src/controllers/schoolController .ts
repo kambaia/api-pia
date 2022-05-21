@@ -1,9 +1,11 @@
 import { Request, Response } from 'express'
 import { School } from '../Models/Schoole'
 class schoolController {
-	public async listAllSchool(_req: Request, res: Response): Promise<void> {
+	public async listAllSchool(req: Request, res: Response): Promise<void> {
 		try {
-			const shool = await School.find({}).populate('shoolRepresentative',  "userName email firstName lastName phoneNumber gender active");
+			const { schoolId } = req.params;
+			console.log(schoolId);
+			const shool = await School.find({schoolId: schoolId}).populate('shoolRepresentative',  "userName email firstName lastName phoneNumber gender active");
 			res.status(200).send(shool);
 		} catch (error) {
 			res.status(404).send(error)

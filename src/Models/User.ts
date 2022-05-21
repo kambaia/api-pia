@@ -10,11 +10,9 @@ const userSchema: Schema = new Schema({
 	profile:{ type: String},
 	userName:{ type: String, required: true},
 	email: { type: String, required: true, unique:true},
-	firstName: { type: String},
-	lastName: { type: String},
+	fullName: { type: String},
 	phoneNumber: { type: String, required: true},
 	password: {type:String, required:true},
-	gender: { type: String, enum: Object.values(Gender) },
 	active:{type:Boolean},
 	studentNumber: String,
 	passwordResetToken: {
@@ -25,13 +23,7 @@ const userSchema: Schema = new Schema({
         type: Date,
         select:false,
     },
-	address: {
-		street: { type: String },
-		city: { type: String },
-		province: { type: String },
-		country:{type:String}
-	},
-	roles: { type: mongoose.Schema.Types.ObjectId, ref: "Roles" },
+	permission: { type: mongoose.Schema.Types.ObjectId, ref: "Roles" },
 	schoolId: { type: mongoose.Schema.Types.ObjectId, ref: "School" }
 },
  { timestamps: true }
