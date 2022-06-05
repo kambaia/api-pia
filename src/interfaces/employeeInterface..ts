@@ -14,7 +14,8 @@ export interface IEmployee extends Document {
 	employeeIdentity:string;
 	description: string
 	address?: Address;
-	contact?:Contact
+	contact?:Contact,
+	position:string
 
 	userId?: IUser["_id"];
 	schoolId?:  ISchool["_id"];

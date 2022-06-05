@@ -3,7 +3,10 @@ import { Employee } from "../Models/Employee";
 class employeeController {
   public async listAllEmployee(_req: Request, res: Response): Promise<void> {
     try {
-      const employee = await Employee.find({});
+      const employee =  await Employee.find({}).populate(
+        "userId",
+        "_id email"
+      );
       res.status(200).send(employee);
     } catch (error) {
       res.status(404).send(error);
@@ -15,7 +18,7 @@ class employeeController {
   ): Promise<void> {
     try {
       const { schoolId } = req.params;
-      const employees = await Employee.find({ schoolId: schoolId });
+      const employees = await Employee.find({ schoolId: schoolId }).populate("userId", "email profile");
       res.status(200).send(employees);
     } catch (error) {
       res.status(404).send(error);
@@ -28,6 +31,7 @@ class employeeController {
         "userId",
         "_id email"
       );
+      console.log(employee);
       if (employee) {
         res.status(200).send(employee);
       } else {
@@ -38,7 +42,6 @@ class employeeController {
     }
   }
   public async saveEmployee(req: Request, res: Response): Promise<void> {
-    console.table(req.body);
     try {
       const employees = await Employee.find({
         $or: [{ employeeIdentity: req.body.employeeIdentity }],
@@ -54,6 +57,7 @@ class employeeController {
         res.status(201).json({ success: "Cadastro feito  com sucesso", data });
       }
     } catch (e) {
+      console.log(e);
       res.status(500).send({ message: e });
     }
   }

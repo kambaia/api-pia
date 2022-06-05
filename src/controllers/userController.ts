@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { School } from "../Models/Schoole";
 import { User } from "../Models/User";
 class UserController {
-	public async listAllUser(_req: Request, res: Response): Promise<void> {
+	public async listAllUser(req: Request, res: Response): Promise<void> {
 		try {
 			const users = await User.find({}).populate(
 				"permission",
@@ -13,6 +13,48 @@ class UserController {
 			res.status(404).send(error);
 		}
 	}
+	public async listAllUserForSchool(req: Request, res: Response): Promise<void> {
+		const { schoolId } = req.query;
+		try {
+			const users = await User.find({ schoolId: schoolId }).populate(
+				"permission",
+				"_id role type"
+			).populate('schoolId', '_id');
+
+			let user = [];
+			for (let index in users) {
+				user.push({
+					createdAt: users[index].createdAt,
+					email: users[index].email,
+					id: users[index]._id,
+					is_active: users[index].active ? 1 : 0,
+					name: users[index].fullName,
+					phoneNumber:  users[index].phoneNumber,
+					permission: users[index].permission,
+					profile: users[index].profile,
+					updatedAt: users[index].updatedAt
+				});
+			}
+			res.status(200).send({
+				data: user,
+				currentPage: 1,
+				from: 1,
+				hasMorePages: true,
+				lastPage: 2,
+				perPage: user.length,
+				prevPageUrl: null,
+				to: 20,
+				total: user.length
+			});
+
+		} catch (error) {
+			res.status(404).send(error);
+		}
+	}
+
+
+
+
 	public async accessUser(req: Request, res: Response): Promise<void> {
 		try {
 			const { userId } = req.params;
@@ -24,7 +66,7 @@ class UserController {
 
 			if (users) {
 				const newUser = {
-					profile: users.profile,
+					profile: users.profile?.thumbnail,
 					id: users._id,
 					userName: users.userName,
 					fullName: users.fullName,
@@ -61,6 +103,7 @@ class UserController {
 
 	public async saveUser(req: Request, res: Response): Promise<void> {
 		try {
+			console.log(req.body);
 			const user = await User.find({
 				$or: [{ email: req.body.email }, { phoneNumber: req.body.phoneNumber }],
 			});

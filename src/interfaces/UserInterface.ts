@@ -2,7 +2,9 @@ import { Document } from 'mongoose';
 import { ISchool } from './SchoolInterface';
 export interface IUser extends Document {
 	_id:String;
-	profile?:string;
+	profile?: {
+		thumbnail:string, name:string
+	};
 	email: string;
 	userName:string,
 	firstName: string;

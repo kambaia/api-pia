@@ -8,6 +8,7 @@ const employeeShema: Schema = new Schema(
     gender: { type: String, required: true },
     birthDate: { type: String, required: true },
     description: { type: String },
+    position: { type: String },
     address: {
       street: { type: String },
       city: { type: String },
@@ -22,10 +23,10 @@ const employeeShema: Schema = new Schema(
       fixe: String,
     },
   employeeIdentity:{ type: String, required: true },
-	employeeBiFile:{ type: String, required: true },
+	employeeBiFile:{ type: String},
 	active:{ type: Boolean, required: true },
-    userId: [{ type: Schema.Types.ObjectId, ref: "User" }],
-	schoolId: [{ type: Schema.Types.ObjectId, ref: "School" }],
+    userId:{ type: Schema.Types.ObjectId, ref: "User" },
+	  schoolId:{ type: Schema.Types.ObjectId, ref: "School" },
 	universityId: [{ type: Schema.Types.ObjectId, ref: "University" }],
   },
   {
