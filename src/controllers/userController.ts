@@ -15,12 +15,25 @@ class UserController {
 	}
 	public async listAllUserForSchool(req: Request, res: Response): Promise<void> {
 		const { schoolId } = req.query;
+		const { limit }= req.query;
+		const { page }= req.query;
+	   
 		try {
+			if(!limit || !schoolId || !page){
+				const {schoolId }= req.params;
+				const users = await User.find({ schoolId: schoolId }).populate(
+					"permission",
+					"_id role type"
+				);
+
+				res.send(users);
+
+			}else{
 			const users = await User.find({ schoolId: schoolId }).populate(
 				"permission",
 				"_id role type"
-			).populate('schoolId', '_id');
-
+			).populate('schoolId', '_id').limit(Number(limit)).skip(Number(page));
+			const total = await User.find({ schoolId: schoolId }).count();
 			let user = [];
 			for (let index in users) {
 				user.push({
@@ -37,16 +50,14 @@ class UserController {
 			}
 			res.status(200).send({
 				data: user,
-				currentPage: 1,
-				from: 1,
+				currentPage: Number(page),
 				hasMorePages: true,
-				lastPage: 2,
+				lastPage: Number(page),
 				perPage: user.length,
 				prevPageUrl: null,
-				to: 20,
 				total: user.length
 			});
-
+		}
 		} catch (error) {
 			res.status(404).send(error);
 		}

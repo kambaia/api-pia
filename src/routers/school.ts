@@ -2,6 +2,7 @@ import  { Router} from 'express';
 import schoolController from '../controllers/schoolController ';
 //import { securetyUser } from '../middlewares/ensureAuthenticated'
 export const schoolRouter = Router();
+schoolRouter.get('/api/schools', schoolController.listAllSchools);
 schoolRouter.get('/api/schools/:schoolId', schoolController.listAllSchool);
 schoolRouter.get('/api/school/:schoolId', schoolController.listOneSchool);
 schoolRouter.post('/api/school', schoolController.saveSchool);

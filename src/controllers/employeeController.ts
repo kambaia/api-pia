@@ -31,7 +31,7 @@ class employeeController {
         "userId",
         "_id email"
       );
-      console.log(employee);
+      console.log(userId);
       if (employee) {
         res.status(200).send(employee);
       } else {
