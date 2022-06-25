@@ -1,11 +1,9 @@
 import { Request, Response } from "express";
-import { IGroup } from "../interfaces/InicializeConfigInstitutionInterface";
-import Class from "../Models/Class";
 import Course from "../Models/Course";
 class CourseController {
   public async listAllCourse(_req:Request, res: Response): Promise<Response> {
     try {
-      const courseResult: IGroup[] = await Course.find({}).populate(
+      const courseResult= await Course.find({}).populate(
         "schoolId",
         "schoolLogo schoolName "
       );
@@ -17,7 +15,7 @@ class CourseController {
   public async listOneCourse(req: Request, res: Response): Promise<Response> {
     const { courseId } = req.params;
     try {
-      const courseResult = await Class.find({ _id: courseId }).populate("schoolId", "schoolLogo schoolName ");
+      const courseResult = await Course.findOne({ _id: courseId }).populate("schoolId", "schoolLogo schoolName ");
       return res.status(200).send(courseResult);
     } catch (error) {
       return res.status(404).json("Nenhuma turma cadastrado");
@@ -25,8 +23,8 @@ class CourseController {
   }
   public async saveCourse(req: Request, res: Response): Promise<Response> {
     try {
-      let courseResult = await Course.find({ course: req.body.course });
-      if (courseResult.length > 0) {
+      let courseResult = await Course.findOne({ course: req.body.course });
+      if (courseResult) {
         return res.status(409).json({
           message: "Curso já existe. Adicione outro que ainda não exista",
         });

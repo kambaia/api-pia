@@ -3,17 +3,25 @@ import classController from '../controllers/classController';
 import courseController from '../controllers/courseController';
 import disciplineController from '../controllers/disciplinaController';
 import groupController from '../controllers/groupController';
+import feeController from '../controllers/feeController';
 export const definitionsSchoolRouter = Router();
 /*******************************routers to register all de class ********************* */
 definitionsSchoolRouter.get('/api/classes', classController.listAllClasses);
+definitionsSchoolRouter.get('/api/class/:classId', classController.listOneClass);
 definitionsSchoolRouter.post('/api/class', classController.saveClass);
 definitionsSchoolRouter.put('/api/class/:classId', classController.updateClass);
 definitionsSchoolRouter.delete('/api/class/:classId', classController.deleteClass);
 
+/*******************************routers to register all de class ********************* */
+definitionsSchoolRouter.get('/api/fees', feeController.listAllFee);
+definitionsSchoolRouter.get('/api/fee/:feeId', feeController.listOneFee);
+definitionsSchoolRouter.post('/api/fee', feeController.saveFee);
+definitionsSchoolRouter.put('/api/fee/:feeId', feeController.updateFee);
+definitionsSchoolRouter.delete('/api/fee/:feeId', feeController.delete);
 
 /*******************************routers to register all de course ********************* */
 definitionsSchoolRouter.get('/api/courses', courseController.listAllCourse);
-definitionsSchoolRouter.get('/api/course', courseController.listOneCourse);
+definitionsSchoolRouter.get('/api/course/:courseId', courseController.listOneCourse);
 definitionsSchoolRouter.post('/api/course', courseController.saveCourse);
 definitionsSchoolRouter.put('/api/course/:courseId', courseController.updateCourso);
 definitionsSchoolRouter.delete('/api/course/:courseId', courseController.deleteCourse);
@@ -27,7 +35,7 @@ definitionsSchoolRouter.delete('/api/discipline/:disciplineId', disciplineContro
 
 /*******************************routers to register all de group ********************* */
 definitionsSchoolRouter.get('/api/groups', groupController.listAllGroups);
-definitionsSchoolRouter.get('/api/group', groupController.listOneGroup);
+definitionsSchoolRouter.get('/api/group/:groudId', groupController.listOneGroup);
 definitionsSchoolRouter.post('/api/group', groupController.saveGroup);
 definitionsSchoolRouter.put('/api/group/:groudId', groupController.updateGroup);
 definitionsSchoolRouter.delete('/api/group/:groudId', groupController.deleteGroup);

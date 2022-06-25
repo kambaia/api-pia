@@ -8,7 +8,12 @@ const disciplineSchema: Schema = new Schema({
    sigle: {
       type: String,
    },
+   status: {
+      type: Boolean,
+   },
    schoolId: { type: mongoose.Schema.Types.ObjectId, ref: "School" },
+   academicYearId: { type: mongoose.Schema.Types.ObjectId, ref: "AcademicYear" },
+
 }, {
    timestamps: true
 })

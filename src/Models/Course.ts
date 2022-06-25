@@ -9,7 +9,14 @@ const schemaCourse: Schema = new Schema({
    sigla: {
       type: String,
    },
+   typeCourse: {
+      type: String,
+   },
+   status: {
+      type: Boolean,
+   },
    schoolId: { type: mongoose.Schema.Types.ObjectId, ref: "School" },
+   academicYearId: { type: mongoose.Schema.Types.ObjectId, ref: "AcademicYear" },
 }, {
    timestamps: true
 })

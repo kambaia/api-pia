@@ -5,7 +5,12 @@ const  groupSchema: Schema = new Schema({
    year:{
       type:String
    },
+   status: {
+      type: Boolean,
+   },
    schoolId: { type: mongoose.Schema.Types.ObjectId, ref: "School" },
+   academicYearId: { type: mongoose.Schema.Types.ObjectId, ref: "AcademicYear" },
+
    }, {
    timestamps: true
 })
