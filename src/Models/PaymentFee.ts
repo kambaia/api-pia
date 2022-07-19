@@ -43,11 +43,11 @@ const paymentSchema: Schema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Registration'
     },
-    SchoolId:
-        { type: mongoose.Schema.Types.ObjectId, ref: 'School' },
     status: {
-        type: Boolean
-    },
+        type: Boolean,
+     },
+     schoolId: { type: mongoose.Schema.Types.ObjectId, ref: "School" },
+     academicYearId: { type: mongoose.Schema.Types.ObjectId, ref: "AcademicYear" },
 
 });
 

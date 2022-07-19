@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { IFee } from "../interfaces/InicializeConfigInstitutionInterface";
-import Fee from "../Models/Fee";
+import {Fee} from "../Models/Fee";
 class FeeController {
   public async listAllFee(_req: Request, res: Response): Promise<Response> {
     try {
@@ -13,7 +13,7 @@ class FeeController {
   public async listOneFee(req: Request, res: Response): Promise<Response> {
     const { feeId } = req.params;
     try {
-      const feeResult = await Fee.find({ _id: feeId }).populate("schoolId", "schoolLogo schoolName ");
+      const feeResult = await Fee.findOne({ _id: feeId }).populate("schoolId", "schoolLogo schoolName ");
       return res.status(200).send(feeResult);
     } catch (error) {
       return res.status(404).json("Nenhuma turma cadastrado");
@@ -21,8 +21,9 @@ class FeeController {
   }
   public async saveFee(req: Request, res: Response): Promise<Response> {
     try {
-      let courseResult = await Fee.find({ fee: req.body.fee });
-      if (courseResult.length > 0) {
+      let courseResult = await Fee.findOne({ fee: req.body.fee });
+      console.log(req.body.fee);
+      if (courseResult) {
         return res.status(409).json({
           message:
             "Esté valor de propina já existe. Adicione outro que ainda não exista",
@@ -62,6 +63,7 @@ class FeeController {
   public async delete(req: Request, res: Response): Promise<Response> {
     try {
       const { feeId } = req.params;
+      console.log(feeId);
       const feeResult = await Fee.findByIdAndDelete(feeId);
       if (feeResult) {
         return res.status(204).send("Deletado com sucesso");

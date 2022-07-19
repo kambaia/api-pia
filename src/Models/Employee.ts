@@ -15,19 +15,19 @@ const employeeShema: Schema = new Schema(
       province: { type: String },
       country: { type: String },
       county: { type: String },
-      neighborhood:  { type: String }
+      neighborhood: { type: String }
     },
     contact: {
       unitel: String,
       movicel: String,
       fixe: String,
     },
-  employeeIdentity:{ type: String, required: true },
-	employeeBiFile:{ type: String},
-	active:{ type: Boolean, required: true },
-    userId:{ type: Schema.Types.ObjectId, ref: "User" },
-	  schoolId:{ type: Schema.Types.ObjectId, ref: "School" },
-	universityId: [{ type: Schema.Types.ObjectId, ref: "University" }],
+    employeeIdentity: { type: String, required: true },
+    employeeBiFile: { type: String },
+    active: { type: Boolean, required: true },
+    userId: { type: Schema.Types.ObjectId, ref: "User" },
+    schoolId: { type: Schema.Types.ObjectId, ref: "School" },
+    universityId: [{ type: Schema.Types.ObjectId, ref: "University" }],
   },
   {
     timestamps: true,
@@ -37,4 +37,4 @@ const employeeShema: Schema = new Schema(
   }
 );
 // Export the model and return your IUser interface
-export const Employee:Model<IEmployee> = mongoose.models.Employee || mongoose.model('Employee', employeeShema);
+export const Employee: Model<IEmployee> = mongoose.models.Employee || mongoose.model('Employee', employeeShema);

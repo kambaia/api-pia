@@ -1,18 +1,22 @@
 import { Request, Response } from "express";
-import Class from "../Models/Class";
+import { Class } from "../Models/Class";
 class classController {
   public async listAllClasses(_req: Request, res: Response): Promise<void> {
     try {
-      const classResult = await Class.find({}).populate("schoolId", "schoolLogo schoolName ");
+      const classResult = await Class.find({})
+      .populate("feeId", "fee")
+      .populate("schoolId", "schoolLogo schoolName")
+
+     
        res.status(200).send(classResult);
     } catch (error) {
         res.status(404).json("Nenhuma classe foi encontrada");
     }
   }
-  public async listClass(req: Request, res: Response): Promise<Response> {
+  public async listOneClass(req: Request, res: Response): Promise<Response> {
     const { classId } = req.params;
     try {
-      const classResult = await Class.find({ _id: classId }).populate("schoolId", "schoolLogo schoolName ");
+      const classResult = await Class.findOne({ _id: classId }).populate("schoolId", "schoolLogo schoolName ");
       return res.status(200).send(classResult);
     } catch (error) {
       return res.status(404).json("Nenhum usuário cadastrado");
@@ -20,8 +24,8 @@ class classController {
   }
   public async saveClass(req: Request, res: Response): Promise<Response> {
     try {
-      let classResult = await Class.find({ className: req.body.className });
-      if (classResult.length > 0) {
+      let classResult = await Class.findOne({ className: req.body.className });
+      if (classResult) {
         return res
           .status(409)
           .json({
@@ -63,8 +67,8 @@ class classController {
   }
   public async deleteClass(req: Request, res: Response): Promise<Response> {
     try {
-      const id = req.params.id;
-      const resultClass = await Class.findByIdAndDelete(id);
+      const {classId }= req.params;
+      const resultClass = await Class.findByIdAndDelete(classId);
 
       if (resultClass) {
         return res.status(204).send("Deletado com sucesso");

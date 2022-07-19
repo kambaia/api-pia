@@ -1,6 +1,5 @@
 import { Request, Response } from 'express'
 import {IGroup } from '../interfaces/InicializeConfigInstitutionInterface';
-import Class from '../Models/Class';
 import Group from '../Models/Group';
 class GroupController {
 	public async listAllGroups(_req: Request, res: Response): Promise<Response> {
@@ -14,7 +13,7 @@ class GroupController {
 	public async listOneGroup(req: Request, res: Response): Promise<Response> {
 		const { groupId } = req.params;
 		try {
-			const groupResult = await Class.findOne({_id: groupId}).populate("schoolId", "schoolLogo schoolName ");
+			const groupResult = await Group.findOne({_id: groupId}).populate("schoolId", "schoolLogo schoolName ");
 			return res.status(200).send(groupResult);
 		} catch (error) {
 			return res.status(404).json("Nenhuma turma cadastrado");
@@ -23,8 +22,8 @@ class GroupController {
 	}
 	public async saveGroup(req: Request, res: Response): Promise<Response> {
 		try {
-			let groupResult = await Group.find({ goup: req.body.goup });
-			if (groupResult.length > 0) {
+			let groupResult = await Group.findOne({ goup: req.body.goup });
+			if (groupResult) {
 			  return res
 				.status(409)
 				.json({
