@@ -5,6 +5,15 @@ class UserController {
 		const roles = await Roles.find();
 		return res.send(roles);
 	}
+	public async listRolesSchool(req: Request, res: Response): Promise<Response> {
+		const { school }=req.params; 
+		const roles = await Roles.find({type: "school"});
+		const newRoles = [];
+		for(let index in roles){
+				newRoles.push(roles[index].role);
+		}
+		return res.send(newRoles);
+	}
 	public async saveRoles(req: Request, res: Response): Promise<Response> {
 		try {
 		     const { level,  role } = req.body;
