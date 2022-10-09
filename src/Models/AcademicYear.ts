@@ -3,14 +3,14 @@ import { IAcademicYear } from '../interfaces/InicializeConfigInstitutionInterfac
 const academicYearSchema: Schema = new Schema({
     description: { type: String },
     startYear: {
-        type: String, required: true,
+        type: Number, required: true,
     },
     endYear: {
-        type: String, required: true,
+        type: Number, required: true,
     },
     schoolId: { type: mongoose.Schema.Types.ObjectId, ref: "School" },
 }, {
     timestamps: true
 })
 // Export the model and return your IUser interface
-export const AcademicYear: Model<IAcademicYear> = mongoose.models.Class || mongoose.model('AcademicYear', academicYearSchema);
+export const AcademicYear: Model<IAcademicYear> = mongoose.models.AcademicYear || mongoose.model('AcademicYear', academicYearSchema);

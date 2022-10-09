@@ -4,18 +4,20 @@ import { ISchool } from './SchoolInterface';
 import { IUniversity } from './UniversityInterface';
 import { Contact, Gender } from './UserInterface';
 
-export interface IEmployee extends Document {
+export interface Iteacher extends Document {
 	_id:String;
+    profile?: {
+		thumbnail:string, name:string
+	};
 	firstName: string;
 	lastName: string;
 	gender?: Gender;
 	birthDate: string;
-	employeeBiFile:string;
-	employeeIdentity:string;
+	teacherBiFile:string;
+	teacherIdentity:string;
 	description: string
 	address?: Address;
 	contact?:Contact,
-	position:string
 	userId?: IUser["_id"];
 	schoolId?:  ISchool["_id"];
 	universityId?: IUniversity["_id"];

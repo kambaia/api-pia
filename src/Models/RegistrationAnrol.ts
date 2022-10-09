@@ -1,39 +1,38 @@
-import mongoose, { model, Schema } from "mongoose";
-const registrationSchema: Schema = new Schema({
-   studentType: {
-      type: String,
-   },
-   anrolNumber: {
-      require: true,
-      default: 0,
-      type: Number
-   },
-   studentShift: {
-      type: String,
-      required: true
-   },
-   yearStart: {
-      type: Number
-   },
-   yearEnd: {
-      type: Number
-   },
-   groupId: {
+import mongoose, { Model, Schema } from "mongoose";
+import { IStudentEnrollment } from "../interfaces/StudentInterfece";
+const studentRegistrationSchema: Schema = new Schema({
+  studentType: {
+    type: String,
+  },
+  anrolNumber: {
+    require: true,
+    default: 0,
+    type: Number,
+  },
+  situation: {
+    type: String,
+  },
+  academicYearId: {
+   type: mongoose.Schema.Types.ObjectId,
+   ref: "AcademicYear",
+ },
+  groupId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "group",
+  },
+  studentHistory: [
+    {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Group'
-   },
-   classId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Class'
-   },
-   feeId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Fee'
-   },
-   studentId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Student'
-   },
-})
+      ref: "Teacher",
+    },
+  ],
+  studentId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Student",
+  },
+});
 
-export default model('Registration', registrationSchema)
+export const StudentEnrollment: Model<IStudentEnrollment> =
+  mongoose.models.StudentEnrollment || mongoose.model("StudentEnrollment", studentRegistrationSchema);
+
+

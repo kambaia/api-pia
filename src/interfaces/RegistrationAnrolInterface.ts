@@ -7,7 +7,6 @@ export interface IRegistrationAnrol extends Document{
    anrolNumber?:string;
    classId: IClass["_id"];
    groupId: IGroup["_id"];
-   feeId: IFee["_id"];
    userId: IUser["_id"];
    yearStart:number;
    yearEnd:number;

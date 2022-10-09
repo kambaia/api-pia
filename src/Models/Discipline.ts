@@ -17,4 +17,4 @@ const disciplineSchema: Schema = new Schema({
 }, {
    timestamps: true
 })
-export default model<IDiscipline>('discipline', disciplineSchema);
+export default model<IDiscipline>('Discipline', disciplineSchema);

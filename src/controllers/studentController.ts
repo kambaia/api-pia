@@ -41,7 +41,7 @@ class studentController {
 			if (student.length > 0) {
 				res
 					.status(409)
-					.json({ error: 'Esse nome de usuário já existe. Experimente outro' })
+					.json({ error: 'O estudante a ser registrado já existe. Experimente outro' })
 			} else {
 				const data = await Student.create(req.body)
 				res.status(201).json({ success: 'Cadastro feito  com sucesso', data })

@@ -15,4 +15,4 @@ const  classSchema: Schema = new Schema({
    timestamps: true
 })
 // Export the model and return your IUser interface
-export const Class:Model<IClass> = mongoose.models.Class || mongoose.model('classe', classSchema);
+export const Class:Model<IClass> = mongoose.models.Class || mongoose.model('Class', classSchema);

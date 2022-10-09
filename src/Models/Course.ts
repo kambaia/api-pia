@@ -21,4 +21,4 @@ const schemaCourse: Schema = new Schema({
    timestamps: true
 })
 
-export default model<ICourse>('course', schemaCourse);
+export default model<ICourse>('Course', schemaCourse);

@@ -1,18 +1,17 @@
-import mongoose, { Model, Schema } from 'mongoose'
-import { IStudent } from '../interfaces/StudentInterfece'
-import { Gender } from '../interfaces/UserInterface'
+import mongoose, { Model, Schema } from "mongoose";
+import { IStudent } from "../interfaces/StudentInterfece";
+import { Gender } from "../interfaces/UserInterface";
 
 const studentSchema: Schema = new Schema({
-  studentPhoto: {
-    type: String,
+  profile: {
+    thumbnail: { type: String },
+    name: { type: String },
   },
-  studentCover: {
-    type: String,
-  },
-  studentName: {
+  firstName: {
     type: String,
     required: true,
   },
+  lastName: { type: String, required: true },
   studentIdentity: {
     type: String,
     required: true,
@@ -47,33 +46,22 @@ const studentSchema: Schema = new Schema({
     opionalNumber: { type: String },
   },
   gender: { type: String, enum: Object.values(Gender) },
+  deficiency: { type: String },
   active: { type: Boolean },
-  registerDate: {
-    type: String,
-  },
-  studentHistory: [
-    {
-      class: String,
-      schoolName: String,
-      yearConclusion: String,
-      conclusion: String,
-      documentCertified: String,
-    },
-  ],
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    ref: "User",
   },
   schoolId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'School',
+    ref: "School",
   },
   univercityId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'university',
+    ref: "university",
     required: false,
   },
-})
+});
 
 export const Student: Model<IStudent> =
-  mongoose.models.Student || mongoose.model('Student', studentSchema)
+  mongoose.models.Student || mongoose.model("Student", studentSchema);
