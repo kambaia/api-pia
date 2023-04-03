@@ -1,6 +1,10 @@
-export * from './user';
-export * from './roles';
-export * from './school';
-export * from './definitionsSchool';
-export * from './student';
-export * from './employee';
+import { userRouter } from './user.routes';
+import { roleRouter } from './roles.routes';
+import { Router } from 'express';
+import { authRouter } from './auth.routes';
+
+const router = Router();
+router.use(userRouter);
+router.use(roleRouter);
+router.use(authRouter);
+export default router;
