@@ -1,0 +1,159 @@
+// This is your Prisma schema file,
+// learn more about it in the docs  https //pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          Int         @id @default(autoincrement())
+  email       String      @unique
+  profileName String
+  userName    String
+  firstName   String
+  surname     String
+  fullName    String
+  userBirth   String
+  password    String
+  phoneNumber String?
+  active      Boolean
+  status      Boolean
+  banned      Boolean
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  urlProfile  String
+  artist      Artist[]
+  abum        Abum[]
+  music       Music[]
+  videoClip   VideoClip[]
+  role        Role?       @relation(fields: [userId], references: [id])
+  userId      Int?
+  Contact     Contact[]
+  Address     Address[]
+
+  @@map("users")
+}
+
+model Role {
+  id   Int    @id @default(autoincrement())
+  role String
+  type String
+  User User[]
+
+  @@map("roles")
+}
+
+model Artist {
+  id             Int             @id @default(autoincrement())
+  name           String
+  bio            String
+  dateOfbirth    String
+  earlyCareer    String
+  musicStyles    String
+  gender         String
+  profilePicture String
+  coverArtist    String
+  tracks         Music[]
+  user           User?           @relation(fields: [userId], references: [id])
+  userId         Int?
+  Contact        Contact[]
+  Address        Address[]
+  albums         artistsAlbums[]
+
+  @@map("artists")
+}
+
+model Abum {
+  id            Int             @id @default(autoincrement())
+  title         String          @unique
+  releaseYear   String
+  cover         String
+  genre         String
+  reviewed      String
+  description   String
+  musicId       Int
+  tracks        Music[]
+  user          User?           @relation(fields: [userId], references: [id])
+  userId        Int?
+  artistsAlbums artistsAlbums[]
+
+  @@map("abums")
+}
+
+model artistsAlbums {
+  id       Int     @id @default(autoincrement())
+  artist   Artist? @relation(fields: [artistId], references: [id])
+  artistId Int?
+  abum     Abum?   @relation(fields: [abumId], references: [id])
+  abumId   Int?
+}
+
+model Music {
+  id          Int    @id @default(autoincrement())
+  title       String
+  artwork     String
+  digital     String
+  phisical    String
+  genre       String
+  releaseYear String
+  copyright   String
+  duration    String
+  urlSingles  String
+
+  tracks   Abum?   @relation(fields: [tracksId], references: [id])
+  tracksId Int?
+  artist   Artist? @relation(fields: [artistId], references: [id])
+  artistId Int?
+  user     User?   @relation(fields: [userId], references: [id])
+  userId   Int?
+
+  @@map("musics")
+}
+
+model VideoClip {
+  id         Int    @id @default(autoincrement())
+  title      String
+  url        String
+  Realizador String
+  director   String
+  production String
+  recordedIn String
+  user       User?  @relation(fields: [userId], references: [id])
+  userId     Int?
+
+  @@map("videoClips")
+}
+
+model Contact {
+  id       Int     @id @default(autoincrement())
+  unitel   String
+  movicel  String
+  fixe     String
+  user     User?   @relation(fields: [userId], references: [id])
+  userId   Int?
+  artist   Artist? @relation(fields: [artistId], references: [id])
+  artistId Int?
+
+  @@map("contacts")
+}
+
+model Address {
+  id         Int     @id @default(autoincrement())
+  title      String
+  url        String
+  Realizador String
+  director   String
+  production String
+  recordedIn String
+  user       User?   @relation(fields: [userId], references: [id])
+  userId     Int?
+  artist     Artist? @relation(fields: [artistId], references: [id])
+  artistId   Int?
+
+  @@map("addresses")
+}

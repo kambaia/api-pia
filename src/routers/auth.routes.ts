@@ -1,4 +1,4 @@
 import { Router } from 'express';
-export const authRouter = router();
+export const authRouter = Router();
 /********************************authintication ************************ */
-authRouter.post('/api/session', authUsersController.authintication);
+//authRouter.post('/api/session', authUsersController.authintication);
