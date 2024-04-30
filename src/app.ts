@@ -2,17 +2,11 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import path from "path";
-import {
-  roleRouter,
-  schoolRouter,
-  userRouter,
-  studentRouter,
-  definitionsSchoolRouter,
-  employeeRouter,
-} from "./routers";
+import api from './api';
+import connectDB from "./db/db";
+
 dotenv.config();
 
-let db = require("./config/db");
 class App {
   public express: express.Application;
   public constructor() {
@@ -22,7 +16,6 @@ class App {
     this.main_routes();
     this.system_router();
   }
-
   private middlewares(): void {
     this.express.use(express.json());
     this.express.use(cors());
@@ -33,22 +26,17 @@ class App {
     this.express.use(express.urlencoded({ extended: false }));
   }
   private database(): void {
-    db(process.env.MONGO_SERVER_KEY);
+    connectDB(process.env.MONGO_SERVER_KEY!);
   }
   private system_router(): void {
-    this.express.use(userRouter);
-    this.express.use(roleRouter);
-    this.express.use(definitionsSchoolRouter);
-    this.express.use(schoolRouter);
-    this.express.use(studentRouter);
-    this.express.use(employeeRouter);
+    this.express.use('/api/v1', api);
   }
 
   private main_routes(): void {
     this.express.get("/", (_req, res) => {
       res.send(`
 				 <body style="display:flex;justify-content: center;  align-items: center;background-color:black;color:black;text-align:center;padding:30px; font-size:40pt;">
-				<h2  style="color:#008bd0;text-align:center;padding:30px; font-size:40pt;">Seja bem-vindo ao sistema de pagamentos instituicional Angola.</h2>
+				<h2 style="color:#008bd0;text-align:center;padding:30px; font-size:40pt;">Seja bem-vindo ao sistema de pagamentos instituicional Angola.</h2>
 					<p style="color:#fff;text-align:center;padding:20px; font-size:20pt;">A nossa api tem como objectivo ajudar no crescimento do país com base os pagamentos de propínas e de serviços escolares nas universidades, institutos e colegios <a href="/doc">Acessa a nossa documentação</a></p>
 				</body>
 		`);

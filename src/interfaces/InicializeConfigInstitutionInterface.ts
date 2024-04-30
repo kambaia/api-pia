@@ -1,6 +1,5 @@
 import { Document } from "mongoose";
 import { ISchool } from "./SchoolInterface";
-import { IStudent } from "./StudentInterfece";
 import { Iteacher } from "./TeachersInterface";
 
 export interface IAcademicYear extends Document {

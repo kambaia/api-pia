@@ -1,11 +1,6 @@
 import { Document } from "mongoose";
 import {
-  IAcademicYear,
-  IClass,
-  ICourse,
-  IFee,
-  IGroup,
-  IShift,
+  IAcademicYear
 } from "./InicializeConfigInstitutionInterface";
 import { ISchool } from "./SchoolInterface";
 import { IUniversity } from "./UniversityInterface";

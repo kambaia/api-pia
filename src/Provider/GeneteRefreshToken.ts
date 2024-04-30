@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import RefreshToken from "../Models/RefreshToken";
+import RefreshToken from "../api/Models/RefreshToken";
 
 class GenerateRefreshToken {
 	async execute(userId: string) {

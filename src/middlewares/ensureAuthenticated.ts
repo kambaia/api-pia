@@ -1,8 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { verify } from "jsonwebtoken";
 
-
-
 export const securetyUser = (request: Request, response: Response, next: NextFunction) => {
     const authToken = request.headers.authorization;
     if (!authToken) {
